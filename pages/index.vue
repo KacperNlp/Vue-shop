@@ -1,12 +1,9 @@
 <template>
   <div>
-    <h1>Hello there!</h1>
-    <ul>
-      <li v-for="product in getPromotedProducts" :key="product.id">
-        <p>{{ product.name }}</p>
-        <p>{{ product.price }}</p>
-      </li>
-    </ul>
+    <h1>Promoted Products!</h1>
+    <div class="flex gap-4">
+      <AppProductCard v-for="product in getPromotedProducts" :key="product.id" :id="product.id"></AppProductCard>
+    </div>
   </div>
 </template>
 

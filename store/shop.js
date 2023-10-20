@@ -35,6 +35,10 @@ export const getters = {
     getPromotedProducts({ products }) {
       const promotedProducts = products.filter( product => product.price > product.promotion );
       return promotedProducts;
+    },
+
+    getProductById: ({ products }) => (id) => {
+        return products.find(product => product.id === id)
     }
 }
   
