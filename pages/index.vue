@@ -1,23 +1,22 @@
 <template>
-  <div>
-    <h1>Promoted Products!</h1>
-    <div class="flex gap-4">
-      <AppProductCard v-for="product in getPromotedProducts" :key="product.id" :id="product.id"></AppProductCard>
+    <div>
+        <div class="flex gap-4">
+            <AppLoadingGif />
+            <AppProductCard v-for="product in getPromotedProducts" :key="product.id" :id="product.id"></AppProductCard>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
-  name: 'IndexPage',
-
-  computed: {
-    ...mapGetters({
-      getPromotedProducts: 'shop/getPromotedProducts'
-    }),
-  }
+    name: 'IndexPage',
+    computed: {
+        ...mapGetters({
+            getPromotedProducts: 'shop/getPromotedProducts',
+        }),
+    },
 })
 </script>
