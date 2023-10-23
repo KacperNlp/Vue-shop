@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="flex gap-4">
-            <AppLoadingGif />
             <AppProductCard v-for="product in getPromotedProducts" :key="product.id" :id="product.id"></AppProductCard>
         </div>
     </div>

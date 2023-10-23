@@ -1,13 +1,14 @@
 <template lang="">
     <div class="p-4 border">
         <p>{{ product.name }}</p>
-        <p>{{ product.price }}</p>
-        <p v-if="hasPromotion">{{ product.promotion }}</p>
+        <p>{{ productPrice }}</p>
+        <p v-if="hasPromotion">{{ productPromotedPrice }}</p>
     </div>
 </template>
 <script lang="ts">
 import { mapGetters } from 'vuex'
 import { Product } from '~/types'
+import { useCurrencyConverter } from '~/composables/useCurrencyConverter'
 
 export default {
     data: () => {
@@ -31,6 +32,14 @@ export default {
         hasPromotion: function () {
             const { price, promotion } = this.product
             return price > promotion
+        },
+
+        productPrice: function () {
+            return useCurrencyConverter(this.product.price, 'en-DE', 'EUR')
+        },
+
+        productPromotedPrice: function () {
+            return useCurrencyConverter(this.product.promotion, 'en-DE', 'EUR')
         },
     },
 
