@@ -7,7 +7,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import cartStepsHandle from '~/mixins/cartStepsHanld'
+import cartStepsHandle from '~/mixins/cartStepsHandle'
 
 export default defineComponent({
     mixins: [cartStepsHandle],

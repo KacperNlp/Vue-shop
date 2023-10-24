@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapGetters } from 'vuex'
-import cartStepsHandle from '~/mixins/cartStepsHanld'
+import cartStepsHandle from '~/mixins/cartStepsHandle'
 
 export default defineComponent({
     mixins: [cartStepsHandle],
