@@ -33,7 +33,7 @@ export const state = () => ({
 
 export const getters = {
     getPromotedProducts({ products }) {
-        const promotedProducts = products.filter((product) => product.price > product.promotion)
+        const promotedProducts = products.filter((product) => product.price > product.promotion && product.stock > 0)
         return promotedProducts
     },
 
@@ -42,4 +42,12 @@ export const getters = {
         (id) => {
             return products.find((product) => product.id === id)
         },
+}
+
+export const mutations = {
+    decreaseProduct({ products }, id) {
+        products.forEach((item) => {
+            if (id === item.id) --item.stock
+        })
+    },
 }

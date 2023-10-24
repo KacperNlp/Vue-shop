@@ -3,13 +3,13 @@ export const state = () => ({
 })
 
 export const mutations = {
-    addProduct(state, id) {
+    addProduct({ items }, id) {
         const addedProduct = { id, count: 1 }
-        state.items.push(addedProduct)
+        items.push(addedProduct)
     },
 
-    increaseProduct(state, idOfProduct) {
-        state.items[idOfProduct].count += 1
+    increaseProduct({ items }, idOfProduct) {
+        items[idOfProduct].count += 1
     },
 }
 
@@ -23,5 +23,7 @@ export const actions = {
         } else {
             commit('addProduct', id)
         }
+
+        commit('shop/decreaseProduct', id, { root: true })
     },
 }
