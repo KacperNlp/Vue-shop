@@ -9,6 +9,8 @@ declare global {
 
     type Currency = 'GBP' | 'USD' | 'PLN' | 'EUR';
     type CurrencyLocation = 'en-GB' | 'en-US' | 'en-PL' | 'en-DE';
+
+    type NextPrevStep = 'next' | 'prev'
 }
 
-export { Product, Currency, CurrencyLocation };
+export { Product, Currency, CurrencyLocation, NextPrevStep };
