@@ -3,7 +3,7 @@ declare global {
         id: string,
         name: string
         price: number
-        promotion: number
+        promotionalPrice: number
         stock: number
     };
 

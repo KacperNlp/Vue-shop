@@ -24,6 +24,12 @@ export default defineComponent({
             type: String,
             required: true,
         },
+        cardType: {
+            validator: function (value) {
+                return value === 'normal' || value === 'cart'
+            },
+            default: 'normal',
+        },
     },
 
     computed: {
@@ -32,8 +38,8 @@ export default defineComponent({
         }),
 
         hasPromotion: function (): boolean {
-            const { price, promotion } = this.product
-            return price > promotion
+            const { price, promotionalPrice } = this.product
+            return price > promotionalPrice
         },
 
         productPrice: function (): string {
@@ -41,7 +47,7 @@ export default defineComponent({
         },
 
         productPromotedPrice: function (): string {
-            return useCurrencyConverter(this.product.promotion, 'en-DE', 'EUR')
+            return useCurrencyConverter(this.product.promotionalPrice, 'en-DE', 'EUR')
         },
     },
 

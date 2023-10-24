@@ -4,28 +4,28 @@ export const state = () => ({
             id: 'ball',
             name: 'Ball',
             price: 15.99,
-            promotion: 12.99,
+            promotionalPrice: 12.99,
             stock: 16,
         },
         {
             id: 'cup',
             name: 'Cup',
             price: 28.99,
-            promotion: 11.99,
+            promotionalPrice: 11.99,
             stock: 85,
         },
         {
             id: 'socks',
             name: 'Socks',
             price: 12.0,
-            promotion: 12.0,
+            promotionalPrice: 12.0,
             stock: 5,
         },
         {
             id: 'trousers',
             name: 'Trousers',
             price: 99.0,
-            promotion: 90.0,
+            promotionalPrice: 90.0,
             stock: 14,
         },
     ],
@@ -33,7 +33,9 @@ export const state = () => ({
 
 export const getters = {
     getPromotedProducts({ products }) {
-        const promotedProducts = products.filter((product) => product.price > product.promotion && product.stock > 0)
+        const promotedProducts = products.filter(
+            (product) => product.price > product.promotionalPrice && product.stock > 0,
+        )
         return promotedProducts
     },
 
