@@ -8,10 +8,11 @@
 </template>
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex'
+import { defineComponent } from 'vue'
 import { Product } from '~/types'
 import { useCurrencyConverter } from '~/composables/useCurrencyConverter'
 
-export default {
+export default defineComponent({
     data: () => {
         return {
             product: {} as Product,
@@ -30,16 +31,16 @@ export default {
             getProductById: 'shop/getProductById',
         }),
 
-        hasPromotion: function () {
+        hasPromotion: function (): boolean {
             const { price, promotion } = this.product
             return price > promotion
         },
 
-        productPrice: function () {
+        productPrice: function (): string {
             return useCurrencyConverter(this.product.price, 'en-DE', 'EUR')
         },
 
-        productPromotedPrice: function () {
+        productPromotedPrice: function (): string {
             return useCurrencyConverter(this.product.promotion, 'en-DE', 'EUR')
         },
     },
@@ -53,5 +54,5 @@ export default {
     beforeMount() {
         this.product = this.getProductById(this.id)
     },
-}
+})
 </script>
