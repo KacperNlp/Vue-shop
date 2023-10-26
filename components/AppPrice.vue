@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <p>{{ productPrice }}</p>
-        <p v-if="hasPromotion">{{ productPromotedPrice }}</p>
+    <div class="flex items-end gap-2">
+        <p v-if="hasPromotion" class="text-rose-500 font-bold text-base md:text-lg">{{ productPromotedPrice }}</p>
+        <p class="text-zinc-400 line-through">{{ productPrice }}</p>
     </div>
 </template>
 <script lang="ts">
