@@ -1,6 +1,7 @@
-import { Product, ShopState } from '~/types/index';
+import { Product, ShopState, ShopGetters } from '~/types/index';
+import { FilterTypes } from '~/types/enums';
 
-export const state = () => ({
+export const state = (): ShopState => ({
     products: [
         {
             id: 'ball',
@@ -8,7 +9,6 @@ export const state = () => ({
             price: 15.99,
             promotionalPrice: 12.99,
             stock: 16,
-            media: '~/assets/product.jpg',
         },
         {
             id: 'cup',
@@ -16,7 +16,6 @@ export const state = () => ({
             price: 28.99,
             promotionalPrice: 11.99,
             stock: 85,
-            media: '~/assets/product.jpg',
         },
         {
             id: 'socks',
@@ -24,7 +23,6 @@ export const state = () => ({
             price: 12.0,
             promotionalPrice: 12.0,
             stock: 5,
-            media: '~/assets/product.jpg',
         },
         {
             id: 'trousers',
@@ -32,7 +30,6 @@ export const state = () => ({
             price: 99.0,
             promotionalPrice: 90.0,
             stock: 14,
-            media: '~/assets/product.jpg',
         },
         {
             id: 'socks2',
@@ -40,7 +37,6 @@ export const state = () => ({
             price: 12.0,
             promotionalPrice: 12.0,
             stock: 5,
-            media: '~/assets/product.jpg',
         },
         {
             id: 'trousers2',
@@ -48,24 +44,22 @@ export const state = () => ({
             price: 99.0,
             promotionalPrice: 90.0,
             stock: 14,
-            media: '~/assets/product.jpg',
         },
     ],
-
-    sortBy: 'name'
+    sortBy: 'a-z'
 })
 
-export const getters = {
-    getPromotedProducts({ products }: ShopState) {
+export const getters: ShopGetters = {
+    getPromotedProducts({ products }) {
         const promotedProducts = products.filter(
             (product: Product) => product.price > product.promotionalPrice && product.stock > 0,
         )
         return promotedProducts
     },
 
-    getAllProducts({ products }: ShopState) {
-        const promotedProducts = products.filter((product: Product) => product.stock > 0)
-        return promotedProducts
+    getAllProducts({ products }) {
+        const productsAfterFiltr = products.filter((product: Product) => product.stock > 0)
+        return productsAfterFiltr
     },
 
     getProductById:

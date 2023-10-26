@@ -10,7 +10,7 @@ export const getters = {
 
 export const mutations = {
     addProduct({ items }, { id, price, promotionalPrice }) {
-        const addedProduct = { id, price, promotionalPrice, stock: 1 }
+        const addedProduct = { id, name, price, promotionalPrice, stock: 1 }
         items.push(addedProduct)
     },
 
@@ -27,8 +27,8 @@ export const actions = {
         if (indexOfExistingProductInCart > -1) {
             commit('increaseProduct', indexOfExistingProductInCart)
         } else {
-            const { price, promotionalPrice } = rootGetters['shop/getProductById'](id)
-            commit('addProduct', { id, price, promotionalPrice })
+            const { name, price, promotionalPrice } = rootGetters['shop/getProductById'](id)
+            commit('addProduct', { id, name, price, promotionalPrice })
         }
 
         commit('shop/decreaseProduct', id, { root: true })
