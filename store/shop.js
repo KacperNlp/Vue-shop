@@ -32,6 +32,22 @@ export const state = () => ({
             stock: 14,
             media: '~/assets/product.jpg',
         },
+        {
+            id: 'socks2',
+            name: 'Socks2',
+            price: 12.0,
+            promotionalPrice: 12.0,
+            stock: 5,
+            media: '~/assets/product.jpg',
+        },
+        {
+            id: 'trousers2',
+            name: 'Trousers2',
+            price: 99.0,
+            promotionalPrice: 90.0,
+            stock: 14,
+            media: '~/assets/product.jpg',
+        },
     ],
 })
 
@@ -40,6 +56,11 @@ export const getters = {
         const promotedProducts = products.filter(
             (product) => product.price > product.promotionalPrice && product.stock > 0,
         )
+        return promotedProducts
+    },
+
+    getAllProducts({ products }) {
+        const promotedProducts = products.filter((product) => product.stock > 0)
         return promotedProducts
     },
 

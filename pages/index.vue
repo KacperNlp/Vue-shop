@@ -1,6 +1,8 @@
 <template>
     <div>
-        <AppSlider :products="getPromotedProducts" sliderHeadline="Discounted Products:"></AppSlider>
+        <AppSection>
+            <AppSlider :products="getPromotedProducts" sliderHeadline="Discounted Products:"></AppSlider>
+        </AppSection>
     </div>
 </template>
 
