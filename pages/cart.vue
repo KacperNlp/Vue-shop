@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <AppSection>
         <section class="pb-4 md:pb-8 border-b mb-4 md:mb-8 lg:mb-12 xl:mb-16 text-center">
             <AppHeadline>Cart</AppHeadline>
         </section>
         <AppCartFirstStep v-if="isFirstStep" v-on:change-step="changeStep" />
         <AppCartSecondStep v-else-if="isSecondStep" v-on:change-step="changeStep" />
         <AppCartThirdStep v-else-if="isThirdStep" v-on:change-step="changeStep" />
-    </div>
+    </AppSection>
 </template>
 
 <script lang="ts">
