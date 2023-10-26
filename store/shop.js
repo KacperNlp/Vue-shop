@@ -6,6 +6,7 @@ export const state = () => ({
             price: 15.99,
             promotionalPrice: 12.99,
             stock: 16,
+            media: '~/assets/product.jpg',
         },
         {
             id: 'cup',
@@ -13,6 +14,7 @@ export const state = () => ({
             price: 28.99,
             promotionalPrice: 11.99,
             stock: 85,
+            media: '~/assets/product.jpg',
         },
         {
             id: 'socks',
@@ -20,6 +22,7 @@ export const state = () => ({
             price: 12.0,
             promotionalPrice: 12.0,
             stock: 5,
+            media: '~/assets/product.jpg',
         },
         {
             id: 'trousers',
@@ -27,6 +30,7 @@ export const state = () => ({
             price: 99.0,
             promotionalPrice: 90.0,
             stock: 14,
+            media: '~/assets/product.jpg',
         },
     ],
 })
