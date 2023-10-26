@@ -1,3 +1,5 @@
+import { Product, ShopState } from '~/types/index';
+
 export const state = () => ({
     products: [
         {
@@ -49,32 +51,34 @@ export const state = () => ({
             media: '~/assets/product.jpg',
         },
     ],
+
+    sortBy: 'name'
 })
 
 export const getters = {
-    getPromotedProducts({ products }) {
+    getPromotedProducts({ products }: ShopState) {
         const promotedProducts = products.filter(
-            (product) => product.price > product.promotionalPrice && product.stock > 0,
+            (product: Product) => product.price > product.promotionalPrice && product.stock > 0,
         )
         return promotedProducts
     },
 
-    getAllProducts({ products }) {
-        const promotedProducts = products.filter((product) => product.stock > 0)
+    getAllProducts({ products }: ShopState) {
+        const promotedProducts = products.filter((product: Product) => product.stock > 0)
         return promotedProducts
     },
 
     getProductById:
-        ({ products }) =>
-        (id) => {
-            return products.find((product) => product.id === id)
+        ({ products }: ShopState) =>
+        (id: string) => {
+            return products.find((product: Product) => product.id === id)
         },
 }
 
 export const mutations = {
-    decreaseProduct({ products }, id) {
-        products.forEach((item) => {
-            if (id === item.id) --item.stock
+    decreaseProduct({ products }: ShopState, id: string) {
+        products.forEach((product: Product) => {
+            if (id === product.id) --product.stock
         })
     },
 }

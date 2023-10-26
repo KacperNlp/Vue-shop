@@ -7,10 +7,14 @@ declare global {
         stock: number
     };
 
+    type ShopState = {
+        products: Product[]
+    }
+
     type Currency = 'GBP' | 'USD' | 'PLN' | 'EUR';
     type CurrencyLocation = 'en-GB' | 'en-US' | 'en-PL' | 'en-DE';
 
     type NextPrevStep = 'next' | 'prev'
 }
 
-export { Product, Currency, CurrencyLocation, NextPrevStep };
+export { Product, ShopState, Currency, CurrencyLocation, NextPrevStep };
