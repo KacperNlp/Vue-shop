@@ -14,6 +14,3 @@ library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Modify nuxt.config.js adding to the `css` and `plugins` sections.
-css: ['@fortawesome/fontawesome-svg-core/styles.css']
-
-plugins: ['~/plugins/fontawesome.js']
