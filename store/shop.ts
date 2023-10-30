@@ -1,5 +1,6 @@
-import { Product, ShopState, ShopGetters } from '~/types/index';
-import { FilterTypes } from '~/types/enums';
+import { Product, FilterTypes, ShopState, ShopGetters } from '~/types/index';
+import { FilterTypesStatic } from '~/types/enums';
+import { ActionContext } from 'vuex';
 
 export const state = (): ShopState => ({
     products: [
@@ -57,8 +58,36 @@ export const getters: ShopGetters = {
         return promotedProducts
     },
 
-    getAllProducts({ products }) {
+    getAllProducts({ products, sortBy }) {
+        const { LowestPrice, HighestPrice, AToZ, ZToA, Promotional } = FilterTypesStatic;
         const productsAfterFiltr = products.filter((product: Product) => product.stock > 0)
+
+        switch(sortBy) {
+            case LowestPrice: 
+                productsAfterFiltr.sort((a,b) => a.promotionalPrice - b.promotionalPrice);
+            break;
+            case HighestPrice: 
+                productsAfterFiltr.sort((a,b) => b.promotionalPrice - a.promotionalPrice);
+            break;
+            case AToZ: 
+                productsAfterFiltr.sort((a,b) => a.name.localeCompare(b.name));
+            break;
+            case ZToA: 
+                productsAfterFiltr.sort((a,b) => b.name.localeCompare(a.name));
+            break;
+            case Promotional: 
+                productsAfterFiltr.sort((a,b) =>  {
+                    if(a.price > a.promotionalPrice && b.price > b.promotionalPrice) {
+                        return a.promotionalPrice - b.promotionalPrice;
+                    } else if (a.price > a.promotionalPrice) {
+                        return -1
+                    } else {
+                        return 1
+                    }
+                });
+            break;
+        }
+
         return productsAfterFiltr
     },
 
@@ -67,6 +96,10 @@ export const getters: ShopGetters = {
         (id: string) => {
             return products.find((product: Product) => product.id === id)
         },
+
+    getCurrentFilter({ sortBy }) {
+        return sortBy;
+    }
 }
 
 export const mutations = {
@@ -75,4 +108,14 @@ export const mutations = {
             if (id === product.id) --product.stock
         })
     },
+
+    changeFilter(state: ShopState, newSortyByValue: FilterTypes) {
+        state.sortBy = newSortyByValue;
+    }
+}
+
+export const actions = {
+    changeFilter({ commit }: ActionContext<ShopState, ShopState>, filterId: FilterTypes) {
+        commit('changeFilter', filterId)
+    }
 }

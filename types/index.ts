@@ -7,9 +7,11 @@ declare global {
         stock: number
     };
 
+    type FilterTypes = 'lowest-price' | 'highest-price' | 'a-z' | 'z-a' | 'promotional';
+
     type ShopState = {
         products: Product[]
-        sortBy: 'lowest-price' | 'highest-price' | 'a-z' | 'z-a' | 'promotional'
+        sortBy: FilterTypes
     }
 
     type CartState = {
@@ -27,6 +29,7 @@ declare global {
         getPromotedProducts(state: ShopState): Product[];
         getAllProducts(state: ShopState): Product[];
         getProductById(state: ShopState): (id: string) => Product | undefined;
+        getCurrentFilter(state: ShopState): FilterTypes
     }
 
     interface MainGetters {
@@ -34,4 +37,4 @@ declare global {
     }
 }
 
-export { Product, ShopState, CartState, Filter, Currency, CurrencyLocation, NextPrevStep, ShopGetters, MainGetters };
+export { Product, FilterTypes, ShopState, CartState, Filter, Currency, CurrencyLocation, NextPrevStep, ShopGetters, MainGetters };

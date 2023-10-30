@@ -1,4 +1,4 @@
-enum FilterTypes {
+enum FilterTypesStatic {
     LowestPrice = 'lowest-price',
     HighestPrice = 'highest-price',
     AToZ = 'a-z',
@@ -6,4 +6,4 @@ enum FilterTypes {
     Promotional = 'promotional'
 }
 
-export { FilterTypes }
+export { FilterTypesStatic }

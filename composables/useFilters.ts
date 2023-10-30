@@ -14,7 +14,7 @@ export default [
         id: 'a-z'
     },
     {
-        name: 'alphabetically z-a',
+        name: 'Alphabetically z-a',
         id: 'z-a'
     },
     {
