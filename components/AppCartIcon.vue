@@ -1,6 +1,7 @@
 <template>
     <AppNavLink link="/cart" class="relative ml-auto"
-        >Cart<span
+        >Cart<span><font-awesome-icon :icon="['fas', 'cart-shopping']" /></span
+        ><span
             v-if="isAnyProductInCart"
             class="absolute top-[-4px] right-[-16px] flex items-center justify-center w-5 h-5 text-[10px] bg-green-app-600/80 text-primary rounded-lg"
             >{{ numberOfProducts }}</span

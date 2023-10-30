@@ -15,7 +15,7 @@ export default {
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: [],
+    css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [],
@@ -29,10 +29,13 @@ export default {
         '@nuxt/typescript-build',
         // https://go.nuxtjs.dev/tailwindcss
         '@nuxtjs/tailwindcss',
+        '@nuxtjs/fontawesome',
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: ['@nuxtjs/eslint-module', '@nuxtjs/tailwindcss'],
+
+    plugins: ['~/plugins/fontawesome.js'],
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
