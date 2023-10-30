@@ -1,10 +1,10 @@
 <template>
-    <nuxt-link :to="link" class="text-sm text-zinc-500 hover:text-lime-600 duration-300"><slot></slot></nuxt-link>
+    <nuxt-link :to="link" class="text-sm text-zinc-500 hover:text-green-app-500 duration-300"><slot></slot></nuxt-link>
 </template>
 
 <style>
 .nuxt-link-exact-active {
-    color: rgba(101, 163, 13);
+    color: #35c45c;
 }
 </style>
 
