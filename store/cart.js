@@ -6,6 +6,12 @@ export const getters = {
     getProducts({ items }) {
         return items
     },
+
+    getNumberOfProductsInCart({ items }) {
+        let numberOfProducts = 0
+        items.forEach((item) => (numberOfProducts += item.stock))
+        return numberOfProducts
+    },
 }
 
 export const mutations = {

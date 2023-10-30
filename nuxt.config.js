@@ -32,7 +32,7 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ['@nuxtjs/eslint-module'],
+    modules: ['@nuxtjs/eslint-module', '@nuxtjs/tailwindcss'],
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},

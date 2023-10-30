@@ -4,7 +4,7 @@
             <nav class="flex gap-4 w-auto">
                 <AppNavLink link="/">Home</AppNavLink>
                 <AppNavLink link="/shop">Shop</AppNavLink>
-                <AppNavLink link="/cart" class="ml-auto">Cart</AppNavLink>
+                <AppCartIcon></AppCartIcon>
             </nav>
         </div>
     </div>
