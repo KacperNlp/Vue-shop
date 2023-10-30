@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center bg-zinc-50 px-4 py-2 md:py-4">
+    <div class="text-center bg-secondary px-4 py-2 md:py-4">
         <div class="mx-auto max-w-7xl md:w-9/12">
             <nav class="flex gap-4 w-auto">
                 <AppNavLink link="/">Home</AppNavLink>

@@ -1,7 +1,24 @@
 <template>
     <div>
         <section v-if="isAnyProductInCart">
-            <AppProductCard v-for="product in products" :id="product.id" :key="product.id" card-type="cart" />
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product:</th>
+                        <th>Price:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <AppCartProductCard
+                        v-for="product in products"
+                        :id="product.id"
+                        :key="product.id"
+                        card-type="cart"
+                    />
+                </tbody>
+            </table>
         </section>
         <section v-else>
             <p>You don't have any product :/</p>

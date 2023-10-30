@@ -47,27 +47,27 @@ export default defineComponent({
     },
 
     computed: {
-        isH1Headline() {
+        isH1Headline(): boolean {
             return this.headlineType === HeadlineTypes.h1
         },
 
-        isH2Headline() {
+        isH2Headline(): boolean {
             return this.headlineType === HeadlineTypes.h2
         },
 
-        isH3Headline() {
+        isH3Headline(): boolean {
             return this.headlineType === HeadlineTypes.h3
         },
 
-        isH4Headline() {
+        isH4Headline(): boolean {
             return this.headlineType === HeadlineTypes.h4
         },
 
-        isH5Headline() {
+        isH5Headline(): boolean {
             return this.headlineType === HeadlineTypes.h5
         },
 
-        isH6Headline() {
+        isH6Headline(): boolean {
             return this.headlineType === HeadlineTypes.h6
         },
     },

@@ -20,13 +20,13 @@ export default defineComponent({
         }
     },
     computed: {
-        isFirstStep() {
+        isFirstStep(): boolean {
             return this.activeStep === 1
         },
-        isSecondStep() {
+        isSecondStep(): boolean {
             return this.activeStep === 2
         },
-        isThirdStep() {
+        isThirdStep(): boolean {
             return this.activeStep === 3
         },
     },
