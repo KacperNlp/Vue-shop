@@ -24,7 +24,7 @@ module.exports = {
             {
                 allowModifiers: true,
             },
-        ],
+        ]
     },
     globals: {
         _: true,

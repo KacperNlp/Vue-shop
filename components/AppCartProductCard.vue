@@ -7,13 +7,13 @@
             <p class="ml-4 text-sm md:text-base font-semibold">{{ product.name }}</p>
         </td>
         <td class="table-td">
+            <AppQuantityInput :id="id" ></AppQuantityInput>
+        </td>
+        <td class="table-td">
             <AppPrice :price="product.price" :promotionalPrice="product.promotionalPrice" class="justify-center"></AppPrice>
         </td>
         <td class="table-td">
             <AppPrice :price="getSummaryPrice" :promotionalPrice="getSummaryPromotionalPrice" class="justify-center"></AppPrice>
-        </td>
-        <td class="table-td">
-            <input type="number" :valu="product.stock">
         </td>
         <td class="table-td">
             <AppCloseIcon @click.native="() => removeItem(product.id)"></AppCloseIcon>

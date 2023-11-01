@@ -16,6 +16,11 @@ export const getters = {
     getProductById: ({ items }) => (id) => {
         return items.find((item) => item.id === id)
     },
+
+    getProductStock:  ({ items }) => (id) => {
+        const item = items.find((item) => item.id === id)
+        return item.stock
+    },
 }
 
 export const mutations = {
@@ -30,6 +35,10 @@ export const mutations = {
 
     removeItemFromCart( state, cartItemsWithoutRemovedItem) {
         state.items = cartItemsWithoutRemovedItem;
+    },
+
+    changeItemStock( state, { index, newValue }) {
+        state.items[index].stock = newValue;
     }
 }
 
@@ -52,5 +61,10 @@ export const actions = {
         const cartItems = state.items.filter(item => id !== item.id);
 
         commit('removeItemFromCart', cartItems)
+    },
+
+    changeItemStock({ state, commit }, { id, newValue }) {
+        const index = state.items.findIndex( item => id === item.id);
+        commit('changeItemStock', { index, newValue })
     }
 }
