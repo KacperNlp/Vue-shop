@@ -1,18 +1,22 @@
 <template>
     <tr>
-        <td class="table-data">
+        <td class="table-td flex items-center">
             <nuxt-link :to="`/product/${product.id}`">
                 <img src="~/assets/product.jpg" :alt="product.name" class="w-full max-w-[100px]" />
             </nuxt-link>
+            <p class="ml-4 text-sm md:text-base font-semibold">{{ product.name }}</p>
         </td>
-        <td>
-            <p class="text-sm md:text-base my-2 font-semibold">{{ product.name }}</p>
+        <td class="table-td">
+            <AppPrice :price="product.price" :promotionalPrice="product.promotionalPrice" class="justify-center"></AppPrice>
         </td>
-        <td>
-            <AppPrice :price="product.price" :promotionalPrice="product.promotionalPrice" class="mb-4"></AppPrice>
+        <td class="table-td">
+            <AppPrice :price="getSummaryPrice" :promotionalPrice="getSummaryPromotionalPrice" class="justify-center"></AppPrice>
         </td>
-        <td>
-            <AppButton @click.native="() => addToCart(product.id)" class="mt-2 w-full">X</AppButton>
+        <td class="table-td">
+            <input type="number" :valu="product.stock">
+        </td>
+        <td class="table-td">
+            <AppCloseIcon @click.native="() => removeProduct(product.id)"></AppCloseIcon>
         </td>
     </tr>
 </template>
@@ -37,13 +41,23 @@ export default defineComponent({
 
     computed: {
         ...mapGetters({
-            getProductById: 'shop/getProductById',
+            getProductById: 'cart/getProductById',
         }),
+
+        getSummaryPrice(): number {
+            const { price, stock } = this.product;
+            return price * stock;
+        },
+
+        getSummaryPromotionalPrice(): number {
+            const { promotionalPrice, stock } = this.product;
+            return promotionalPrice * stock;
+        }
     },
 
     methods: {
         ...mapActions({
-            addToCart: 'cart/addProduct',
+            removeProduct: 'cart/addProduct',
         }),
     },
 

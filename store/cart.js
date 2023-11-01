@@ -12,6 +12,10 @@ export const getters = {
         items.forEach((item) => (numberOfProducts += item.stock))
         return numberOfProducts
     },
+
+    getProductById: ({ items }) => (id) => {
+        return items.find((item) => item.id === id)
+    },
 }
 
 export const mutations = {

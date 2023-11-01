@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AppSection>
+        <AppSection class="mb-4 md:mb-6">
             <AppPLPFilters></AppPLPFilters>
         </AppSection>
         <AppSection>
