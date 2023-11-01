@@ -16,7 +16,7 @@
             <input type="number" :valu="product.stock">
         </td>
         <td class="table-td">
-            <AppCloseIcon @click.native="() => removeProduct(product.id)"></AppCloseIcon>
+            <AppCloseIcon @click.native="() => removeItem(product.id)"></AppCloseIcon>
         </td>
     </tr>
 </template>
@@ -57,7 +57,7 @@ export default defineComponent({
 
     methods: {
         ...mapActions({
-            removeProduct: 'cart/addProduct',
+            removeItem: 'cart/removeItemFromCart',
         }),
     },
 

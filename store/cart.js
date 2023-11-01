@@ -27,6 +27,10 @@ export const mutations = {
     increaseProduct({ items }, idOfProduct) {
         items[idOfProduct].stock += 1
     },
+
+    removeItemFromCart( state, cartItemsWithoutRemovedItem) {
+        state.items = cartItemsWithoutRemovedItem;
+    }
 }
 
 export const actions = {
@@ -43,4 +47,10 @@ export const actions = {
 
         commit('shop/decreaseProduct', id, { root: true })
     },
+
+    removeItemFromCart({ state, commit }, id) {
+        const cartItems = state.items.filter(item => id !== item.id);
+
+        commit('removeItemFromCart', cartItems)
+    }
 }
