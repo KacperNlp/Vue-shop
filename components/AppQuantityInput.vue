@@ -1,14 +1,18 @@
 <template lang="">
-    <input v-model="stock" type="number" class="border border-zinc-400 focus:outline-green-app-500 text-center">
+    <input
+        v-model="stock"
+        type="number"
+        class="border border-zinc-300 focus:outline-green-app-500 text-center text-zinc-400 focus:text-zinc-800"
+    />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex'
 
 export default defineComponent({
     data() {
         return {
-            stock: 0
+            stock: 0,
         }
     },
 
@@ -16,31 +20,31 @@ export default defineComponent({
         id: {
             type: String,
             required: true,
-        }
+        },
     },
 
     watch: {
         stock(newValueAsSting) {
             const newValue = Number(newValueAsSting)
             const itemIdAndUpdatedStock = { id: this.id, newValue }
-            this.changeItemStock(itemIdAndUpdatedStock);
-        }
+            this.changeItemStock(itemIdAndUpdatedStock)
+        },
     },
 
     computed: {
         ...mapGetters({
-            getProductStock: 'cart/getProductStock'
-        })
+            getProductStock: 'cart/getProductStock',
+        }),
     },
 
     methods: {
         ...mapActions({
-            changeItemStock: 'cart/changeItemStock'
-        })
+            changeItemStock: 'cart/changeItemStock',
+        }),
     },
 
     beforeMount() {
         this.stock = this.getProductStock(this.id)
-    }
+    },
 })
 </script>

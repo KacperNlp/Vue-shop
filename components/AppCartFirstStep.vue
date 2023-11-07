@@ -20,7 +20,7 @@
                     />
                 </tbody>
             </table>
-            <div>
+            <div class="flex justify-end mt-4 mb-8">
                 <p>
                     You will have to pay:
                     <AppPrice :price="summaryPrice.price" :promotionalPrice="summaryPrice.promotionalPrice"></AppPrice>
