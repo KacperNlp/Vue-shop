@@ -25,6 +25,16 @@ export const getters = {
             const item = items.find((item) => item.id === id)
             return item.stock
         },
+
+    getSummaryPrice({ items }) {
+        const summaryPrice = { price: 0, promotionalPrice: 0 }
+        items.forEach(({ stock, price, promotionalPrice }) => {
+            summaryPrice.price += stock * price
+            summaryPrice.promotionalPrice += stock * promotionalPrice
+        })
+
+        return summaryPrice
+    },
 }
 
 export const mutations = {

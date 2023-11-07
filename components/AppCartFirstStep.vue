@@ -20,6 +20,12 @@
                     />
                 </tbody>
             </table>
+            <div>
+                <p>
+                    You will have to pay:
+                    <AppPrice :price="summaryPrice.price" :promotionalPrice="summaryPrice.promotionalPrice"></AppPrice>
+                </p>
+            </div>
         </section>
         <section v-else>
             <p>You don't have any product :/</p>
@@ -38,6 +44,7 @@ export default defineComponent({
     computed: {
         ...mapGetters({
             products: 'cart/getProducts',
+            summaryPrice: 'cart/getSummaryPrice',
         }),
 
         isAnyProductInCart() {
