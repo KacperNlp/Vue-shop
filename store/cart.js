@@ -13,14 +13,18 @@ export const getters = {
         return numberOfProducts
     },
 
-    getProductById: ({ items }) => (id) => {
-        return items.find((item) => item.id === id)
-    },
+    getProductById:
+        ({ items }) =>
+        (id) => {
+            return items.find((item) => item.id === id)
+        },
 
-    getProductStock:  ({ items }) => (id) => {
-        const item = items.find((item) => item.id === id)
-        return item.stock
-    },
+    getProductStock:
+        ({ items }) =>
+        (id) => {
+            const item = items.find((item) => item.id === id)
+            return item.stock
+        },
 }
 
 export const mutations = {
@@ -33,13 +37,16 @@ export const mutations = {
         items[idOfProduct].stock += 1
     },
 
-    removeItemFromCart( state, cartItemsWithoutRemovedItem) {
-        state.items = cartItemsWithoutRemovedItem;
+    removeItemFromCart(state, cartItemsWithoutRemovedItem) {
+        state.items = cartItemsWithoutRemovedItem
     },
 
-    changeItemStock( state, { index, newValue }) {
-        state.items[index].stock = newValue;
-    }
+    changeItemStock(state, { index, newValue }) {
+        const cartItems = [...state.items]
+        cartItems[index].stock = newValue
+
+        state.items = cartItems.filter(({ stock }) => stock > 0)
+    },
 }
 
 export const actions = {
@@ -58,13 +65,13 @@ export const actions = {
     },
 
     removeItemFromCart({ state, commit }, id) {
-        const cartItems = state.items.filter(item => id !== item.id);
+        const cartItems = state.items.filter((item) => id !== item.id)
 
         commit('removeItemFromCart', cartItems)
     },
 
     changeItemStock({ state, commit }, { id, newValue }) {
-        const index = state.items.findIndex( item => id === item.id);
+        const index = state.items.findIndex((item) => id === item.id)
         commit('changeItemStock', { index, newValue })
-    }
+    },
 }
