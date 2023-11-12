@@ -10,7 +10,7 @@
             :promotionalPrice="product.promotionalPrice"
             class="mb-4"
         ></AppPrice>
-        <AppButton @click.native="() => addToCart(id)" class="mt-2 w-full">Add to cart</AppButton>
+        <AppButton @click.native="() => addToCart({ id, stock: 1 })" class="mt-2 w-full">Add to cart</AppButton>
     </div>
 </template>
 <script lang="ts">

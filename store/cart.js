@@ -38,13 +38,13 @@ export const getters = {
 }
 
 export const mutations = {
-    addProduct({ items }, { id, price, promotionalPrice }) {
-        const addedProduct = { id, name, price, promotionalPrice, stock: 1 }
+    addProduct({ items }, { id, price, promotionalPrice, stock }) {
+        const addedProduct = { id, name, price, promotionalPrice, stock }
         items.push(addedProduct)
     },
 
-    increaseProduct({ items }, idOfProduct) {
-        items[idOfProduct].stock += 1
+    increaseProduct({ items }, { idOfProduct, stock }) {
+        items[idOfProduct].stock += stock
     },
 
     removeItemFromCart(state, cartItemsWithoutRemovedItem) {
@@ -60,18 +60,18 @@ export const mutations = {
 }
 
 export const actions = {
-    addProduct({ state, commit, rootGetters }, id) {
+    addProduct({ state, commit, rootGetters }, { id, stock }) {
         const { items } = state
         const indexOfExistingProductInCart = items.findIndex((item) => item.id === id)
 
         if (indexOfExistingProductInCart > -1) {
-            commit('increaseProduct', indexOfExistingProductInCart)
+            commit('increaseProduct', { idOfProduct: indexOfExistingProductInCart, stock })
         } else {
             const { name, price, promotionalPrice } = rootGetters['shop/getProductById'](id)
-            commit('addProduct', { id, name, price, promotionalPrice })
+            commit('addProduct', { id, name, price, promotionalPrice, stock })
         }
 
-        commit('shop/decreaseProduct', id, { root: true })
+        commit('shop/decreaseProduct', { id: id, stock }, { root: true })
     },
 
     removeItemFromCart({ state, commit }, id) {

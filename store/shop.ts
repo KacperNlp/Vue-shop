@@ -103,9 +103,9 @@ export const getters: ShopGetters = {
 }
 
 export const mutations = {
-    decreaseProduct({ products }: ShopState, id: string) {
+    decreaseProduct({ products }: ShopState, { id, stock }: {id: string, stock: number}) {
         products.forEach((product: Product) => {
-            if (id === product.id) --product.stock
+            if (id === product.id) product.stock -= stock
         })
     },
 
