@@ -1,10 +1,10 @@
 <template lang="">
-    <div>
-        <AppProductGallery :img="productImg" :alt="productName"></AppProductGallery>
+    <div class="flex flex-col lg:flex-row gap-4">
+        <AppProductGallery class="w-1/2" :img="productImg" :alt="productName"> </AppProductGallery>
         <div>
-            <h1>{{ productName }}</h1>
-            <AppPrice :price="productPrice" :promotionalPrice="productPromotionalPrice"></AppPrice>
-            <p>Stock: {{ stock }}</p>
+            <h1 class="text-lg md:text-xl lg:text-2xl mb-4">{{ productName }}</h1>
+            <AppPrice :price="productPrice" :promotionalPrice="productPromotionalPrice" class="mb-4"></AppPrice>
+            <p class="mb-4 text-sm">Stock: {{ stock }}</p>
             <AppInput
                 :maxValue="stock"
                 :inputId="productId"
@@ -14,6 +14,8 @@
                 v-model="value"
                 inputType="number"
                 labelText="Set how much products you want to add to cart:"
+                errorMessage="You cannot set more products than in stock!"
+                class="mb-4"
             ></AppInput>
             <AppButton @click.native="addProductsToCart">Add to cart</AppButton>
         </div>

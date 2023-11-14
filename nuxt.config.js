@@ -41,6 +41,6 @@ export default {
     build: {},
     tailwindcss: {
         cssPath: '~/assets/tailwind.css',
-        exposeConfig: true
-    }
+        exposeConfig: true,
+    },
 }
