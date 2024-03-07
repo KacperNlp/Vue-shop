@@ -1,1 +1,0 @@
-Projekt w trakcie refaktoryzacji i migracji.
