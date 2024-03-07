@@ -9,6 +9,12 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@nuxt/test-utils/module'
-  ]
+    '@pinia/nuxt',
+    '@nuxt/test-utils/module',
+  ],
+  nitro: {
+    alias: {
+      pinia: 'pinia'
+    }
+  }
 })
