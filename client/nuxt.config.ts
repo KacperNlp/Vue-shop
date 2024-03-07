@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxt/test-utils/module',
+    'nuxt-icon'
   ],
   nitro: {
     alias: {
