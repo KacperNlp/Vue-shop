@@ -7,5 +7,8 @@
       description="Our latest collection is here. Discover the latest trends and styles for the new year."
       btnText="Shop now"
     />
+    <AppSectionBox>
+      <AppBrandsList />
+    </AppSectionBox>
   </div>
 </template>
