@@ -8,7 +8,6 @@ type NavigationStoreSetup = {
     mainNav: NavigationElement[]
 }
 
-
 export type {
     NavigationElement,
     NavigationStoreSetup
