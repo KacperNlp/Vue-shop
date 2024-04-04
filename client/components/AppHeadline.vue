@@ -8,11 +8,16 @@
   </h2>
   <h3
     v-else-if="headlineType === HeadlinesTypes.H3"
-    class="text-base md:text-lg lg:text-xl mb-2 font-medium"
+    class="text-base md:text-lg xl:text-xl mb-2 font-medium"
   >
     <slot />
   </h3>
-  <h4 v-else-if="headlineType === HeadlinesTypes.H4"><slot /></h4>
+  <h4
+    v-else-if="headlineType === HeadlinesTypes.H4"
+    class="text-base font-medium"
+  >
+    <slot />
+  </h4>
   <h5 v-else-if="headlineType === HeadlinesTypes.H5"><slot /></h5>
   <h6 v-else-if="headlineType === HeadlinesTypes.H6"><slot /></h6>
 </template>

@@ -31,7 +31,7 @@
           :key="id"
           class="h-full"
         >
-          <AppCard class="flex gap-8 h-full p-8 items-center">
+          <AppCard class="flex gap-8 lg:gap-4 xl:gap-8 h-full p-8 items-center">
             <div>
               <img
                 :src="img"
