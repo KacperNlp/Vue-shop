@@ -61,32 +61,32 @@ import { HeadlinesTypes } from "@/enums/enums";
 const dataExample = [
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
   {
     categoryName: "Example",
-    link: "/shoes",
+    link: "/category/shoes",
     imgUrl: "/imgs/hero-4.jpg",
   },
 ];
