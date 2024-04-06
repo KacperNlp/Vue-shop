@@ -1,5 +1,6 @@
 <template>
-    <NuxtLink :to="`/product/${id}`">
+    <NuxtLink class="relative" :to="`/product/${id}`">
+        <AppDiscountPercentTile v-if="discount" :price="price" :discount="discount"  class="absolute top-2 right-2" />
         <div>
             <img :src="img" :alt="name" loading="lazy">
         </div>
@@ -32,5 +33,14 @@ interface Props {
 
 const { $currency } = useNuxtApp()
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const discountPercent = computed(() => {
+    if(!props.discount) return;
+
+    const priceDifference = props.price - props.discount;
+    const percent = priceDifference/props.price * 100;
+
+    return `-${percent}%`
+})
 </script>
