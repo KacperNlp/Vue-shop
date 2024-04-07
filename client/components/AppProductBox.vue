@@ -1,14 +1,11 @@
 <template>
     <NuxtLink class="relative" :to="`/product/${id}`">
-        <AppDiscountPercentTile v-if="discount" :price="price" :discount="discount"  class="absolute top-2 right-2" />
+        <AppDiscountPercentTile v-if="discount" :price="price" :discount="discount" class="absolute top-2 right-2" />
         <div>
             <img :src="img" :alt="name" loading="lazy">
         </div>
         <div class="mt-3">
-            <div class="flex gap-[2px] mb-2">
-                <AppStarIcon v-for="star in 5" :key="star" :isFilled="star <= reviews.review" :fillValue="reviews.review - star" />
-                <span class="text-xs ml-2">({{ reviews.numberOfReviews }})</span>
-            </div>
+            <AppReviewStars :numberOfReviews="reviews.numberOfReviews" :review="reviews.review" />
             <h3 class="font-light mb-2">{{ name }}</h3>
             <div v-if="discount">
                 <span class="text-gray-400 line-through font-normal mr-2">{{ $currency(price) }}</span>
@@ -36,10 +33,10 @@ const { $currency } = useNuxtApp()
 const props = defineProps<Props>();
 
 const discountPercent = computed(() => {
-    if(!props.discount) return;
+    if (!props.discount) return;
 
     const priceDifference = props.price - props.discount;
-    const percent = priceDifference/props.price * 100;
+    const percent = priceDifference / props.price * 100;
 
     return `-${percent}%`
 })
