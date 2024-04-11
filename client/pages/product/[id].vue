@@ -62,10 +62,12 @@
               id="productStock"
               min="1"
               :max="product.stock"
-              :value="numberOfProducts"
+              v-model="quantity"
               class="px-4 py-2 rounded-lg border-2"
             />
-            <AppButton>Add to cart</AppButton>
+            <AppButton @click="handleClickAddProductToCart"
+              >Add to cart</AppButton
+            >
           </div>
         </div>
         <span class="my-2 text-sm">
@@ -117,19 +119,9 @@ import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
 
-const numberOfProducts = ref(1);
+const cart = useCart();
 
-const reviewsTabHeadline = computed(
-  () => `Reviews (${product.reviews.numberOfReviews})`
-);
-
-function addToWishlist() {
-  console.log("Add to wishlist");
-}
-
-function handleClickShareProduct() {
-  console.log("Share");
-}
+const quantity = ref(1);
 
 const product = {
   id: "1",
@@ -156,6 +148,33 @@ const product = {
     review: 4.2,
   },
 };
+
+const reviewsTabHeadline = computed(
+  () => `Reviews (${product.reviews.numberOfReviews})`
+);
+
+function addToWishlist() {
+  console.log("Add to wishlist");
+}
+
+function handleClickShareProduct() {
+  console.log("Share");
+}
+
+function handleClickAddProductToCart() {
+  const { id, name, price, discount, imgs, reviews } = product;
+  const addedProduct = {
+    id,
+    name,
+    price,
+    discount,
+    img: imgs[0].url,
+    reviews,
+    quantity,
+  };
+
+  cart.addProductToCart(addedProduct);
+}
 </script>
 
 <style lang="scss" scoped>

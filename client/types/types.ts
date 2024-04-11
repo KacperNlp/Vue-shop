@@ -41,5 +41,6 @@ export type {
     ProductReviewsSummary,
     Product,
     BreadcrumbType,
-    CartStore
+    CartStore,
+    AddedProduct
 }
