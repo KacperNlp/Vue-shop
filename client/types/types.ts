@@ -27,10 +27,19 @@ type BreadcrumbType = {
     path: string
 }
 
+interface AddedProduct extends Product {
+    quantity: number
+}
+
+type CartStore = {
+    addedProducts: AddedProduct[]
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
     ProductReviewsSummary,
     Product,
-    BreadcrumbType
+    BreadcrumbType,
+    CartStore
 }
