@@ -1,11 +1,16 @@
 <template>
-  <AppSectionBox>
-    <div>Home / Products / Example Product</div>
+  <AppSectionBox class="!pb-0">
+    <AppBreadcrumbs />
   </AppSectionBox>
   <AppSectionBox
     class="grid grid-cols-1 md:grid-cols-2 gap-4 xl:gap-8 2xl:gap-16"
   >
-    <div>
+    <div class="relative">
+      <AppDiscountPercentTile
+        :price="product.price"
+        :discount="product.discount"
+        class="absolute top-2 md:top-4 right-2 md:right-4 z-20 discount-tile"
+      />
       <Splide :options="{ rewind: true }">
         <SplideSlide v-for="(img, id) in product.imgs" :key="id">
           <img :src="img.url" :alt="img.alt" class="w-full" />
@@ -152,3 +157,11 @@ const product = {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.discount-tile {
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+</style>

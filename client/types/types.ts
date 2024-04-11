@@ -22,9 +22,15 @@ type Product = {
     reviews: ProductReviewsSummary
 }
 
+type BreadcrumbType = {
+    name: string,
+    path: string
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
     ProductReviewsSummary,
-    Product
+    Product,
+    BreadcrumbType
 }
