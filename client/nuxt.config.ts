@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/styles/main.css'],
+  css: ['primevue/resources/themes/md-light-deeppurple/theme.css', '~/assets/styles/main.css'],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -11,11 +11,17 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxt/test-utils/module',
-    'nuxt-icon'
+    'nuxt-icon',
+    'nuxt-primevue'
   ],
   nitro: {
     alias: {
       pinia: 'pinia'
+    }
+  },
+  primevue: {
+    options: {
+      importTheme: { from: '@/themes/mytheme.js' },
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-20 flex py-4 shadow-sm bg-white">
-    <div class="mx-auto px-4 max-w-7xl w-full flex justify-between">
+    <div class="mx-auto px-4 max-w-[1400px] w-full flex justify-between">
       <div class="flex items-center gap-4 lg:gap-12">
         <button @click="handleClickOpenNav" class="lg:hidden">
           <Icon name="gravity-ui:bars" width="24" height="24" />
