@@ -65,9 +65,9 @@
               v-model="quantity"
               class="px-4 py-2 rounded-lg border-2"
             />
-            <AppButton @click="handleClickAddProductToCart"
-              >Add to cart</AppButton
-            >
+            <AppButton @click="handleClickAddProductToCart">
+              Add to cart
+            </AppButton>
           </div>
         </div>
         <span class="my-2 text-sm">
@@ -170,7 +170,7 @@ function handleClickAddProductToCart() {
     discount,
     img: imgs[0].url,
     reviews,
-    quantity,
+    quantity: quantity.value,
   };
 
   cart.addProductToCart(addedProduct);

@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-20 flex py-4 shadow-sm bg-white">
+  <header class="sticky top-0 z-30 flex py-4 shadow-sm bg-white">
     <div class="mx-auto px-4 max-w-[1400px] w-full flex justify-between">
       <div class="flex items-center gap-4 lg:gap-12">
         <button @click="handleClickOpenNav" class="lg:hidden">
@@ -7,7 +7,7 @@
         </button>
         <AppLogo />
         <nav
-          class="fixed lg:static top-0 left-[-105%] w-screen lg:w-auto h-screen lg:h-auto bg-white p-8 lg:p-2 duration-500 shadow-lg lg:shadow-none"
+          class="fixed lg:static top-0 left-[-105%] w-screen lg:w-auto h-screen lg:h-auto bg-white p-8 lg:p-2 duration-500 shadow-lg lg:shadow-none z-30"
           :class="{ '!left-0': isNavVisible }"
         >
           <ul class="flex flex-col lg:flex-row gap-2 lg:gap-6">
@@ -53,7 +53,12 @@
           </NuxtLink>
         </div>
         <div class="flex items-center">
-          <button @click="handleClickOpenCheckout">
+          <button @click="handleClickOpenCheckout" class="relative">
+            <span
+              v-if="cart.numberOfProductsAddedToCart"
+              class="absolute top-[-4px] right-[-4px] text-[10px] flex justify-center items-center w-4 h-4 bg-green-600 text-gray-50 rounded-lg"
+              >{{ cart.numberOfProductsAddedToCart }}</span
+            >
             <Icon
               name="ion:cart-outline"
               width="24"
@@ -71,13 +76,14 @@
       <button @click="handleClickCloseCheckout" class="absolute top-4 right-8">
         <Icon name="material-symbols:close" width="24" height="24" />
       </button>
-      <h2>Cart</h2>
+      <AppCartSidebar />
     </section>
   </header>
 </template>
 
 <script setup lang="ts">
 const store = useWebsiteNavigation();
+const cart = useCart();
 
 const isNavVisible = ref(false);
 const isCheckoutVisible = ref(false);

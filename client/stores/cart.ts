@@ -8,11 +8,20 @@ export const useCart = defineStore('cart', {
         }
     },
 
+    getters: {
+        numberOfProductsAddedToCart: (state) => {
+            let addedProducts = 0;
+            state.addedProducts.forEach(({ quantity }) => addedProducts += quantity);
+
+            return addedProducts;
+        }
+    },
+
     actions: {
         addProductToCart(product: AddedProduct) {
             const indexOfProduct = this.addedProducts.findIndex(productInCart => productInCart.id === product.id);
 
-            if(indexOfProduct) {
+            if(indexOfProduct >= 0) {
                 this.addedProducts[indexOfProduct].quantity += product.quantity;
             } else {
                 const addedProduct = {
