@@ -14,6 +14,20 @@ export const useCart = defineStore('cart', {
             state.addedProducts.forEach(({ quantity }) => addedProducts += quantity);
 
             return addedProducts;
+        },
+
+        getCartTotalAmount: (state) => {
+            let amount = 0;
+
+            state.addedProducts.forEach( ({ discount, price, quantity }) => {
+                if(discount) {
+                    amount += discount * quantity
+                } else {
+                    amount += price * quantity
+                }
+            })
+
+            return amount;
         }
     },
 

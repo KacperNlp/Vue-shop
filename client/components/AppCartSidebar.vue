@@ -18,8 +18,16 @@
         </li>
       </ul>
     </div>
-    <div class="flex justify-center">
-      <AppButton btnLink="/cart">Checkout </AppButton>
+    <div class="flex flex-col justify-center items-center gap-8">
+      <div class="flex justify-between w-full px-8 border-t pt-4">
+        <span>Total:</span>
+        <span
+          ><strong>{{ $currency(cart.getCartTotalAmount) }}</strong></span
+        >
+      </div>
+      <div>
+        <AppButton btnLink="/cart">Checkout </AppButton>
+      </div>
     </div>
   </div>
   <div v-else class="flex flex-col items-center gap-2">
