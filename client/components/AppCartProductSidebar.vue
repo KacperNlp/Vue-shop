@@ -27,6 +27,7 @@
     </div>
     <div class="w-8">
       <InputNumber
+        @update:modelValue="handleUpdateProductQuantity"
         v-model="currentQuantity"
         showButtons
         buttonLayout="vertical"
@@ -62,4 +63,15 @@ const discountMultipledByQuantity = computed(() => {
 function handleClickRemoveProductFromCart() {
   cart.removeProductFromCart(props.id);
 }
+
+function handleUpdateProductQuantity() {
+  cart.changeProductQuantity(props.id, currentQuantity.value);
+}
+
+watch(
+  () => props.quantity,
+  (newValue) => {
+    currentQuantity.value = newValue;
+  }
+);
 </script>

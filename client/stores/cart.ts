@@ -36,6 +36,11 @@ export const useCart = defineStore('cart', {
             const productsInCart = this.addedProducts.filter(({ id }) => id !== productId);
 
             this.addedProducts = productsInCart;
+        },
+
+        changeProductQuantity(productId: string, quantity: number) {
+            const indexOfProduct = this.addedProducts.findIndex(({ id }) => id === productId);
+            this.addedProducts[indexOfProduct].quantity = quantity;
         }
     }
 })
