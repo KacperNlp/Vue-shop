@@ -26,7 +26,7 @@
         >
       </div>
       <div>
-        <AppButton btnLink="/cart">Checkout </AppButton>
+        <AppButton btnLink="/checkout">Checkout </AppButton>
       </div>
     </div>
   </div>

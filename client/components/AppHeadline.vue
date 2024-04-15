@@ -1,5 +1,10 @@
 <template>
-  <h1 v-if="headlineType === HeadlinesTypes.H1"><slot /></h1>
+  <h1
+    v-if="headlineType === HeadlinesTypes.H1"
+    class="text-xl md:text-2xl lg:text-3xl xl:text-4xl md:mb-2 font-bold"
+  >
+    <slot />
+  </h1>
   <h2
     v-else-if="headlineType === HeadlinesTypes.H2"
     class="text-lg md:text-xl lg:text-2xl mb-2 md:mb-4 font-medium"

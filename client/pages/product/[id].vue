@@ -95,16 +95,16 @@
     </div>
   </AppSectionBox>
   <AppSectionBox>
-    <TabView>
-      <TabPanel header="Description">
+    <el-tabs v-model="activeName" class="demo-tabs">
+      <el-tab-pane label="Description" name="first">
         <p class="m-0 max-w-lg">
           {{ product.desc }}
         </p>
-      </TabPanel>
-      <TabPanel :header="reviewsTabHeadline">
+      </el-tab-pane>
+      <el-tab-pane :label="reviewsTabHeadline" name="second">
         <p class="m-0 max-w-lg">No reviews...</p>
-      </TabPanel>
-    </TabView>
+      </el-tab-pane>
+    </el-tabs>
   </AppSectionBox>
   <AppSectionBox class="mb-2 md:mb-8 xl:mb-16">
     <AppHeadline :headlineType="HeadlinesTypes.H2" class="uppercase text-center"
@@ -122,6 +122,7 @@ import { HeadlinesTypes } from "@/enums/enums";
 const cart = useCart();
 
 const quantity = ref(1);
+const activeName = ref("first");
 
 const product = {
   id: "1",
