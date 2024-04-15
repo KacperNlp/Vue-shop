@@ -30,6 +30,12 @@ export const useCart = defineStore('cart', {
 
                 this.addedProducts.push(addedProduct);
             }
+        },
+
+        removeProductFromCart(productId: string) {
+            const productsInCart = this.addedProducts.filter(({ id }) => id !== productId);
+
+            this.addedProducts = productsInCart;
         }
     }
 })

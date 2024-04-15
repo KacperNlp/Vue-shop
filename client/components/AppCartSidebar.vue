@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="cart.numberOfProductsAddedToCart"
-    class="flex flex-col justify-between h-full py-16"
+    class="flex flex-col justify-between h-full w-full py-16"
   >
-    <div class="w-full">
+    <div class="w-full px-8">
       <ul>
         <li v-for="product in cart.addedProducts" :key="product.id">
           <AppCartProductSidebar
@@ -19,7 +19,7 @@
       </ul>
     </div>
     <div class="flex justify-center">
-      <AppButton btnLink="/checkout">Checkout </AppButton>
+      <AppButton btnLink="/cart">Checkout </AppButton>
     </div>
   </div>
   <div v-else class="flex flex-col items-center gap-2">
