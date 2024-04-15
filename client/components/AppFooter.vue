@@ -28,16 +28,20 @@
       </div>
     </AppSectionBox>
     <section
-      class="flex justify-between w-11/12 max-w-screen-xl mx-auto text-xs border-t pt-4"
+      class="flex justify-between w-11/12 max-w-[1400px] mx-auto text-xs border-t pt-4"
     >
       <span>ScriptCommerce - by Kacper Nalepa</span>
       <div>
         <ul class="flex gap-4">
           <li v-for="{ id, icon, url } in socialMedia" :key="id">
-            <a
-              :href="url"
-              class="w-4 h-4 inline-block bg-black/50 hover:bg-black duration-200"
-            ></a>
+            <a :href="url" class="w-4 h-4">
+              <Icon
+                :name="icon"
+                width="24"
+                height="24"
+                class="text-gray-400 hover:text-green-600 duration-200"
+              />
+            </a>
           </li>
         </ul>
       </div>
@@ -51,17 +55,17 @@ import { HeadlinesTypes } from "@/enums/enums";
 const socialMedia = [
   {
     id: 1,
-    icon: "",
+    icon: "mdi:youtube",
     url: "#",
   },
   {
     id: 2,
-    icon: "",
+    icon: "ic:baseline-tiktok",
     url: "#",
   },
   {
     id: 3,
-    icon: "",
+    icon: "mdi:instagram",
     url: "#",
   },
 ];

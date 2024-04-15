@@ -174,6 +174,7 @@ function handleClickAddProductToCart() {
   };
 
   cart.addProductToCart(addedProduct);
+  quantity.value = 1;
 }
 </script>
 

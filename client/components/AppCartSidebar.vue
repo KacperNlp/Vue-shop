@@ -37,4 +37,5 @@
 
 <script setup lang="ts">
 const cart = useCart();
+console.log(cart.addedProducts);
 </script>
