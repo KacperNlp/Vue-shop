@@ -1,17 +1,17 @@
 <template>
     <AppSectionBox>
         <el-card class="flex flex-col items-center max-w-lg mx-auto py-2 pb-4">
-            <AppHeadline :headlineType="HeadlinesTypes.H2">Login</AppHeadline>
+            <AppHeadline :headlineType="HeadlinesTypes.H2" class="text-center">Login</AppHeadline>
             <form @submit.prevent="handleSubmitLoginForm" class="flex flex-col gap-2">
-                <el-form-item label=" Login:">
+                <el-form-item label=" Login:" class="form-input-box">
                     <el-input v-model="userLoginData.userName" required />
                 </el-form-item>
-                <el-form-item label="Password:">
+                <el-form-item label="Password:" class="form-input-box">
                     <el-input v-model="userLoginData.password" type="password" required />
                 </el-form-item>
-                <el-button type="success" class="mt-4">Primary</el-button>
+                <el-button type="success" class="mt-4">Login</el-button>
             </form>
-            <div class="mt-4 text-sm">
+            <div class="mt-4 text-sm text-center">
                 <span>You don't have account? Then <NuxtLink to="/register" class="text-green-500 hover:text-green-400">
                         Register
                     </NuxtLink></span>

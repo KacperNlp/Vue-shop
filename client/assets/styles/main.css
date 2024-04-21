@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .form-input-box {
+      @apply flex flex-col gap-2 text-xs;
+    }
+}

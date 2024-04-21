@@ -40,6 +40,13 @@ interface UserLogin  {
     password: string
 }
 
+interface UserRegister extends UserLogin  {
+    passwordRepeat: string,
+    email: string,
+    name: string,
+    surname: string
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
@@ -48,5 +55,6 @@ export type {
     BreadcrumbType,
     CartStore,
     AddedProduct,
-    UserLogin
+    UserLogin,
+    UserRegister
 }
