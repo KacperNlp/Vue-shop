@@ -35,6 +35,11 @@ type CartStore = {
     addedProducts: AddedProduct[]
 }
 
+interface UserLogin  {
+    userName: string,
+    password: string
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
@@ -42,5 +47,6 @@ export type {
     Product,
     BreadcrumbType,
     CartStore,
-    AddedProduct
+    AddedProduct,
+    UserLogin
 }
