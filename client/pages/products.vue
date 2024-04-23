@@ -1,10 +1,36 @@
 <template>
   <AppSectionBox class="flex flex-col lg:flex-row gap-16 xl:gap-32">
-    <div class="p-4 w-72 bg-gray-200">Filters</div>
+    <div class="w-72">
+      <el-collapse v-model="activeNames">
+        <el-collapse-item title="Price" name="1">
+          <el-slider v-model="filters.price" range />
+        </el-collapse-item>
+        <el-collapse-item title="Categories" name="2">
+          <el-checkbox-group v-model="filters.checkedCategories">
+            <el-checkbox
+              v-for="{ name, key } in categories"
+              :label="name"
+              :value="key"
+              :key="key"
+            />
+          </el-checkbox-group>
+        </el-collapse-item>
+        <el-collapse-item title="Sales Products Only" name="3">
+          <el-checkbox v-model="filters.isSaleOnly" />
+        </el-collapse-item>
+      </el-collapse>
+    </div>
     <div class="w-full">
       <ul class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
         <li
-          v-for="{ id, name, price, discount, img, reviews } in products"
+          v-for="{
+            id,
+            name,
+            price,
+            discount,
+            img,
+            reviews,
+          } in filteredProducts"
           :ke="id"
         >
           <AppProductBox
@@ -22,6 +48,53 @@
 </template>
 
 <script setup lang="ts">
+const filters = reactive({
+  price: [10, 40],
+  checkedCategories: [],
+  isSaleOnly: false,
+});
+
+const activeNames = ref(["1"]);
+
+const filteredProducts = computed(() => {
+  const productsCopy = products.filter((product) => {
+    if (filters.isSaleOnly && product.discount) {
+      return (
+        filters.price[0] <= product.discount &&
+        product.discount <= filters.price[1]
+      );
+    } else if (filters.isSaleOnly) {
+      return false;
+    }
+
+    return (
+      filters.price[0] <= product.discount &&
+      product.discount <= filters.price[1]
+    );
+  });
+
+  return productsCopy;
+});
+
+const categories = [
+  {
+    name: "T-shirt",
+    key: "t-shirt",
+  },
+  {
+    name: "Hoodies",
+    key: "hoodies",
+  },
+  {
+    name: "Clothing",
+    key: "clothing",
+  },
+  {
+    name: "Accessories",
+    key: "accessories",
+  },
+];
+
 const products = [
   {
     id: "1",
@@ -69,3 +142,12 @@ const products = [
   },
 ];
 </script>
+
+<style lang="scss">
+.el-collapse-item {
+  &__header,
+  &__content {
+    background: #f3f4f6;
+  }
+}
+</style>
