@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-between flex-nowrap gap-2 relative">
-    <div class="flex gap-2">
-      <img :src="img" :alt="name" class="w-16" />
-      <div>
+  <div class="flex justify-between flex-col flex-nowrap gap-2 relative">
+    <div class="flex justify-between gap-2">
+      <img :src="img" :alt="name" class="w-20" />
+      <div class="text-right">
         <span class="text-sm mb-1 block">{{ name }}</span>
         <div v-if="discount">
           <span class="text-gray-400 line-through font-normal mr-2">{{
@@ -26,18 +26,12 @@
       </div>
     </div>
     <div class="w-8">
-      <InputNumber
-        @update:modelValue="handleUpdateProductQuantity"
+      <el-input-number
         v-model="currentQuantity"
-        showButtons
-        buttonLayout="vertical"
-        class="w-full bg-gray-50 border"
         :min="1"
         :max="99"
-      >
-        <template #incrementbuttonicon><span>+</span></template>
-        <template #decrementbuttonicon><span>-</span></template>
-      </InputNumber>
+        @change="handleUpdateProductQuantity"
+      />
     </div>
   </div>
 </template>
