@@ -1,13 +1,10 @@
-interface OptionsOfRequest {
-    baseUrl?: string
-}
-
-export const useAPIFetch = (request: string, opts: OptionsOfRequest) => {
+export const useAPIFetch = async (request: string) => {
     const config = useRuntimeConfig()
 
     const headers = {
         Authorization: `bearer ${config.public.apiKey}`,
-      };
-  
-    return useFetch(request, { baseURL: config.public.baseURL as string, ...opts, headers})
+    };
+
+    const { data } = await useFetch(`${config.public.baseURL + request}`, { headers });
+    return data.value.data;
 }

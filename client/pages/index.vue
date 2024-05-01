@@ -9,8 +9,8 @@
     <AppSectionBox>
       <AppHeadline :headlineType="HeadlinesTypes.H2">Shop by Category</AppHeadline>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-        <AppImgTile v-for="category in dataExample" :key="category.categoryName" :link="category.link"
-          :text="category.categoryName" :imgUrl="category.imgUrl" />
+        <AppImgTile v-for="category in categories" :key="category.id" :link="`/category${category.attributes.url}`"
+          :text="category.attributes.name" :imgUrl="category.attributes.img.data.attributes.url" />
       </div>
     </AppSectionBox>
     <AppSectionBox>
@@ -35,6 +35,9 @@
 
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
+import type { Category } from '@/types/types';
+
+const categories = ref<Category[]>([]);
 
 const dataExample = [
   {
@@ -98,11 +101,10 @@ const dataOurAdvantages = [
 
 async function initFetch() {
   try {
-    const data = await useAPIFetch('/categories');
-    console.log(data);
-    console.log('Hello there');
+    const data = await useAPIFetch('/categories?populate=*');
+    categories.value = data;
   } catch (err) {
-
+    console.log('Something went wrong!');
   }
 }
 

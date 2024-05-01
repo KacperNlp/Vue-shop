@@ -368,18 +368,20 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'Category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Attribute.String;
-    Image: Attribute.Media;
+    name: Attribute.String;
+    img: Attribute.Media;
     products: Attribute.Relation<
       'api::category.category',
       'manyToMany',
       'api::product.product'
     >;
+    url: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -47,6 +47,21 @@ interface UserRegister extends UserLogin  {
     surname: string
 }
 
+interface Category {
+    name: string,
+    img: string
+}
+
+interface Resource<T> {
+    data: T,
+    meta: {
+        page: number,
+        pageSize: number, 
+        pageCount: number, 
+        total: number
+    }
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
@@ -56,5 +71,7 @@ export type {
     CartStore,
     AddedProduct,
     UserLogin,
-    UserRegister
+    UserRegister,
+    Category,
+    Resource
 }
