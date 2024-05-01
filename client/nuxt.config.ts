@@ -14,11 +14,10 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@element-plus/nuxt',
   ],
-  axios: {
-    baseURL: process.env.STRAPI_BACKEND_URL,
-    headers: {
-      'Authorization': 'bearer ' + process.env.STRAPI_API_KEY,
-      'Content-Type': 'application/json',
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.STRAPI_BACKEND_URL,
+      apiKey: process.env.STRAPI_API_KEY
     },
   },
   nitro: {
