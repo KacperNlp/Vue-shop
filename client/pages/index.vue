@@ -20,7 +20,7 @@
           :key="category.id"
           :link="`/category${category.attributes.url}`"
           :text="category.attributes.name"
-          :imgUrl="getImgUrl(category.attributes.img.data.attributes.url)"
+          :imgUrl="getImgUrl(category.attributes.img?.data.attributes.url)"
         />
       </div>
     </AppSectionBox>
@@ -63,8 +63,17 @@ const config = useRuntimeConfig();
 
 const categories = ref<Category[]>([]);
 
-function getImgUrl(imgUrl: string) {
+function getImgUrl(imgUrl: string | undefined) {
   return config.public.uploadUrl + imgUrl;
+}
+
+async function initFetch() {
+  try {
+    const data = await useAPIFetch("/categories?populate=*");
+    categories.value = data;
+  } catch (err) {
+    console.log("Something went wrong!");
+  }
 }
 
 const dataOurAdvantages = [
@@ -93,15 +102,6 @@ const dataOurAdvantages = [
     text: "24/7 Online support",
   },
 ];
-
-async function initFetch() {
-  try {
-    const data = await useAPIFetch("/categories?populate=*");
-    categories.value = data;
-  } catch (err) {
-    console.log("Something went wrong!");
-  }
-}
 
 await initFetch();
 </script>

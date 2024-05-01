@@ -47,9 +47,23 @@ interface UserRegister extends UserLogin  {
     surname: string
 }
 
+interface ImgObject {
+    data: {
+        id: number,
+        attributes: {
+            url: string
+        }
+    }
+}
+
 interface Category {
-    name: string,
-    img: string
+    attributes: {
+        name: string,
+        img?: ImgObject,
+        url: string,
+        key: string
+    }
+    id: number
 }
 
 interface Resource<T> {

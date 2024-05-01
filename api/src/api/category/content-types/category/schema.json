@@ -30,9 +30,12 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product.product",
-      "mappedBy": "categories"
+      "inversedBy": "categories"
     },
     "url": {
+      "type": "string"
+    },
+    "key": {
       "type": "string"
     }
   }

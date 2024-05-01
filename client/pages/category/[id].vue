@@ -8,10 +8,10 @@
         <el-collapse-item title="Categories" name="2">
           <el-checkbox-group v-model="filters.checkedCategories">
             <el-checkbox
-              v-for="{ name, key } in categories"
-              :label="name"
-              :value="key"
-              :key="key"
+              v-for="{ attributes } in categories"
+              :label="attributes.name"
+              :value="attributes.key"
+              :key="attributes.key"
             />
           </el-checkbox-group>
         </el-collapse-item>
@@ -41,6 +41,27 @@
 </template>
 
 <script setup lang="ts">
+import type { Category } from "@/types/types";
+
+const route = useRoute();
+
+const categories = ref<Category[]>([]);
+
+async function getLoadData() {
+  try {
+    const [categoriesDataRespons, productsDataResponse] = await Promise.all([
+      useAPIFetch("/categories"),
+      useAPIFetch(
+        `/products?[filters][categories][$eq]={${route.params.id}}&populate=*`
+      ),
+    ]);
+
+    categories.value = categoriesDataRespons;
+  } catch (err) {
+    console.log("Error");
+  }
+}
+
 const filters = reactive({
   price: [10, 40],
   checkedCategories: [],
@@ -48,25 +69,6 @@ const filters = reactive({
 });
 
 const activeNames = ref(["1"]);
-
-const categories = [
-  {
-    name: "T-shirt",
-    key: "t-shirt",
-  },
-  {
-    name: "Hoodies",
-    key: "hoodies",
-  },
-  {
-    name: "Clothing",
-    key: "clothing",
-  },
-  {
-    name: "Accessories",
-    key: "accessories",
-  },
-];
 
 const products = [
   {
@@ -114,6 +116,8 @@ const products = [
     },
   },
 ];
+
+await getLoadData();
 </script>
 
 <style lang="scss">
