@@ -15,9 +15,9 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
   ],
   axios: {
-    baseURL: process.env.WORDPRESS_BACKEND,
+    baseURL: process.env.STRAPI_BACKEND_URL,
     headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${process.env.CONSUMER_KEY}:${process.env.CONSUMER_SECRET}`).toString('base64'),
+      'Authorization': 'bearer ' + process.env.STRAPI_API_KEY,
       'Content-Type': 'application/json',
     },
   },
