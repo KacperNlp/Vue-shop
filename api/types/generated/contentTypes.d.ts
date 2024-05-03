@@ -425,6 +425,9 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::category.category'
     >;
     reviews: Attribute.JSON;
+    stock: Attribute.Integer;
+    sku: Attribute.String;
+    shortDesc: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

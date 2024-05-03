@@ -30,8 +30,7 @@ interface Props {
   reviews: ProductReviewsSummary;
 }
 
-const { $currency } = useNuxtApp();
-const { $imgUrl } = useNuxtApp();
+const { $currency, $imgUrl } = useNuxtApp();
 
 defineProps<Props>();
 </script>

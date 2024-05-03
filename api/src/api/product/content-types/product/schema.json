@@ -47,6 +47,15 @@
     },
     "reviews": {
       "type": "json"
+    },
+    "stock": {
+      "type": "integer"
+    },
+    "sku": {
+      "type": "string"
+    },
+    "shortDesc": {
+      "type": "text"
     }
   }
 }
