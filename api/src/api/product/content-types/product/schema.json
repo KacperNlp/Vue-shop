@@ -12,23 +12,23 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "text"
     },
-    "Price": {
+    "price": {
       "type": "decimal"
     },
-    "Discount": {
+    "discount": {
       "type": "decimal",
       "default": 0
     },
     "isNew": {
       "type": "boolean"
     },
-    "Images": {
+    "images": {
       "type": "media",
       "multiple": true,
       "required": false,
@@ -39,11 +39,14 @@
         "audios"
       ]
     },
-    "categories": {
+    "category": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "reviews": {
+      "type": "json"
     }
   }
 }

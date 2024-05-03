@@ -376,13 +376,13 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     img: Attribute.Media;
-    products: Attribute.Relation<
-      'api::category.category',
-      'manyToMany',
-      'api::product.product'
-    >;
     url: Attribute.String;
     key: Attribute.String;
+    products: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::product.product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -413,17 +413,18 @@ export interface ApiProductProduct extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Name: Attribute.String;
-    Description: Attribute.Text;
-    Price: Attribute.Decimal;
-    Discount: Attribute.Decimal & Attribute.DefaultTo<0>;
+    name: Attribute.String;
+    description: Attribute.Text;
+    price: Attribute.Decimal;
+    discount: Attribute.Decimal & Attribute.DefaultTo<0>;
     isNew: Attribute.Boolean;
-    Images: Attribute.Media;
-    categories: Attribute.Relation<
+    images: Attribute.Media;
+    category: Attribute.Relation<
       'api::product.product',
-      'manyToMany',
+      'manyToOne',
       'api::category.category'
     >;
+    reviews: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

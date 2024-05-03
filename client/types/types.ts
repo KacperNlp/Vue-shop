@@ -13,13 +13,26 @@ type ProductReviewsSummary = {
     review: number
 }
 
+type ImageObject = {
+    id: number,
+    attributes: {
+        url: string,
+    }
+}
+
 type Product = {
     id: string,
-    name: string,
-    price: number,
-    discount: null | number,
-    img: string,
-    reviews: ProductReviewsSummary
+    attributes: {
+        name: string,
+        description: string,
+        price: number,
+        discount: null | number,
+        images: {
+            data: ImageObject[]
+        },
+        isNew: boolean,
+        reviews: ProductReviewsSummary
+    }
 }
 
 type BreadcrumbType = {
@@ -87,5 +100,6 @@ export type {
     UserLogin,
     UserRegister,
     Category,
-    Resource
+    Resource,
+    ImageObject
 }
