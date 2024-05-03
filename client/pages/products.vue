@@ -7,12 +7,8 @@
         </el-collapse-item>
         <el-collapse-item title="Categories" name="2">
           <el-checkbox-group v-model="filters.checkedCategories">
-            <el-checkbox
-              v-for="{ name, key } in categories"
-              :label="name"
-              :value="key"
-              :key="key"
-            />
+            <el-checkbox v-for="{ attributes, id } in categories" :label="attributes.name" :value="attributes.key"
+              :key="id" />
           </el-checkbox-group>
         </el-collapse-item>
         <el-collapse-item title="Sales Products Only" name="3">
@@ -22,25 +18,9 @@
     </div>
     <div class="w-full">
       <ul class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        <li
-          v-for="{
-            id,
-            name,
-            price,
-            discount,
-            img,
-            reviews,
-          } in filteredProducts"
-          :ke="id"
-        >
-          <AppProductBox
-            :id="id"
-            :name="name"
-            :price="price"
-            :discount="discount"
-            :img="img"
-            :reviews="reviews"
-          />
+        <li v-for="{ id, attributes } in products" :ke="id">
+          <AppProductBox :id="id" :name="attributes.name" :price="attributes.price" :discount="attributes.discount"
+            :imgs="attributes.images.data" :reviews="attributes.reviews" />
         </li>
       </ul>
     </div>
@@ -48,103 +28,60 @@
 </template>
 
 <script setup lang="ts">
+import type { Category, Product } from "@/types/types";
+
+const categories = ref<Category[]>([]);
+const products = ref<Product[]>([]);
+const activeNames = ref(["1"]);
+
 const filters = reactive({
   price: [10, 40],
   checkedCategories: [],
   isSaleOnly: false,
 });
 
-const activeNames = ref(["1"]);
+// const filteredProducts = computed(() => {
+//   const productsCopy = products.filter((product) => {
+//     if (filters.isSaleOnly && product.discount) {
+//       return (
+//         filters.price[0] <= product.discount &&
+//         product.discount <= filters.price[1]
+//       );
+//     } else if (filters.isSaleOnly) {
+//       return false;
+//     }
 
-const filteredProducts = computed(() => {
-  const productsCopy = products.filter((product) => {
-    if (filters.isSaleOnly && product.discount) {
-      return (
-        filters.price[0] <= product.discount &&
-        product.discount <= filters.price[1]
-      );
-    } else if (filters.isSaleOnly) {
-      return false;
-    }
+//     return (
+//       filters.price[0] <= product.discount &&
+//       product.discount <= filters.price[1]
+//     );
+//   });
 
-    return (
-      filters.price[0] <= product.discount &&
-      product.discount <= filters.price[1]
-    );
-  });
+//   return productsCopy;
+// });
 
-  return productsCopy;
-});
+async function getLoadData() {
+  try {
+    const [categoriesDataRespons, productsDataResponse] = await Promise.all([
+      useAPIFetch("/categories"),
+      useAPIFetch(
+        `/products?populate=*`
+      ),
+    ]);
 
-const categories = [
-  {
-    name: "T-shirt",
-    key: "t-shirt",
-  },
-  {
-    name: "Hoodies",
-    key: "hoodies",
-  },
-  {
-    name: "Clothing",
-    key: "clothing",
-  },
-  {
-    name: "Accessories",
-    key: "accessories",
-  },
-];
+    categories.value = categoriesDataRespons;
+    products.value = productsDataResponse;
+  } catch (err) {
+    console.log("Error");
+  }
+}
 
-const products = [
-  {
-    id: "1",
-    name: "Product 1",
-    price: 13,
-    discount: null,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 3,
-      review: 4.2,
-    },
-  },
-  {
-    id: "2",
-    name: "Product 2",
-    price: 12,
-    discount: null,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 5,
-      review: 3.5,
-    },
-  },
-  {
-    id: "3",
-    name: "Product 3",
-    price: 10,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-  {
-    id: "4",
-    name: "Product 4",
-    price: 25,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-];
+await getLoadData();
 </script>
 
 <style lang="scss">
 .el-collapse-item {
+
   &__header,
   &__content {
     background: #f3f4f6;

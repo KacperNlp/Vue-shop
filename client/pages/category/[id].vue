@@ -53,7 +53,6 @@ async function getLoadData() {
 
     categories.value = categoriesDataRespons;
     products.value = productsDataResponse;
-    console.log(products.value)
   } catch (err) {
     console.log("Error");
   }

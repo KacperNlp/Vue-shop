@@ -31,7 +31,10 @@ type Product = {
             data: ImageObject[]
         },
         isNew: boolean,
-        reviews: ProductReviewsSummary
+        reviews: ProductReviewsSummary,
+        category: {
+            data: Category[]
+        }
     }
 }
 
