@@ -92,6 +92,7 @@
 
 <script setup lang="ts">
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
+import { ElNotification } from 'element-plus'
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
 import type { ProductAttributes } from '@/types/types';
@@ -141,11 +142,15 @@ function handleClickAddProductToCart() {
 async function fetchData() {
   try {
     const { attributes } = await useAPIFetch(`/products/${route.params.id}?&populate=*`);
+
     product.value = attributes;
     isLoading.value = false;
-    console.log(product.value);
   } catch (err) {
-    console.log("Something went wrong!");
+    ElNotification({
+      title: 'Error',
+      message: 'There is a problem with fetching data!',
+      type: 'error',
+    })
   }
 }
 
