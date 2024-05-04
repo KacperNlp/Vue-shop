@@ -92,7 +92,7 @@
 
 <script setup lang="ts">
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
-import { ElNotification } from 'element-plus'
+import { ElNotification } from 'element-plus';
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
 import type { ProductAttributes } from '@/types/types';

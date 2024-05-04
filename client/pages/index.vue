@@ -1,51 +1,29 @@
 <template>
   <div>
-    <AppBanner
-      imgUrl="imgs/hero-4.jpg"
-      headline="Just landed."
-      subHeadline="The New Year Collection"
+    <AppBanner imgUrl="imgs/hero-4.jpg" headline="Just landed." subHeadline="The New Year Collection"
       description="Our latest collection is here. Discover the latest trends and styles for the new year."
-      btnText="Shop now"
-    />
+      btnText="Shop now" />
     <AppSectionBox>
       <AppBrandsList />
     </AppSectionBox>
     <AppSectionBox>
-      <AppHeadline :headlineType="HeadlinesTypes.H2"
-        >Shop by Category</AppHeadline
-      >
+      <AppHeadline :headlineType="HeadlinesTypes.H2">Shop by Category</AppHeadline>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-        <AppImgTile
-          v-for="category in categories"
-          :key="category.id"
-          :link="`/category${category.attributes.url}`"
-          :text="category.attributes.name"
-          :imgUrl="getImgUrl(category.attributes.img?.data.attributes.url)"
-        />
+        <AppImgTile v-for="category in categories" :key="category.id" :link="`/category${category.attributes.url}`"
+          :text="category.attributes.name" :imgUrl="$imgUrl(category.attributes.img?.data.attributes.url)" />
       </div>
     </AppSectionBox>
     <AppSectionBox>
       <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <li
-          v-for="{ id, headline, text, img } in dataOurAdvantages"
-          :key="id"
-          class="h-full"
-        >
+        <li v-for="{ id, headline, text, img } in dataOurAdvantages" :key="id" class="h-full">
           <AppCard class="flex gap-8 lg:gap-4 xl:gap-8 h-full p-8 items-center">
             <div>
-              <img
-                :src="img"
-                :alt="headline"
-                loading="lazy"
-                width="60"
-                height="60"
-                class="min-w-[60px]"
-              />
+              <img :src="img" :alt="headline" loading="lazy" width="60" height="60" class="min-w-[60px]" />
             </div>
             <div>
               <AppHeadline :headlineType="HeadlinesTypes.H3" class="mb-0">{{
-                headline
-              }}</AppHeadline>
+        headline
+      }}</AppHeadline>
               <span class="text-sm">{{ text }}</span>
             </div>
           </AppCard>
@@ -59,20 +37,20 @@
 import { HeadlinesTypes } from "@/enums/enums";
 import type { Category } from "@/types/types";
 
-const config = useRuntimeConfig();
+const { $imgUrl } = useNuxtApp();
 
 const categories = ref<Category[]>([]);
-
-function getImgUrl(imgUrl: string | undefined) {
-  return config.public.uploadUrl + imgUrl;
-}
 
 async function initFetch() {
   try {
     const data = await useAPIFetch("/categories?populate=*");
     categories.value = data;
   } catch (err) {
-    console.log("Something went wrong!");
+    ElNotification({
+      title: 'Error',
+      message: 'Sorry, we have problem with fetching categories!',
+      type: 'error',
+    })
   }
 }
 
