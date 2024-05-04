@@ -48,7 +48,15 @@ const userLoginData = reactive<UserRegister>({
     email: ''
 })
 
-function handleSubmitRegisterForm() {
-    console.log('Register');
+async function handleSubmitRegisterForm() {
+    try {
+        await useAPIFetch("/auth/local/register");
+    } catch (err) {
+        ElNotification({
+            title: 'Error',
+            message: 'Sorry, we have error with register, please try again later!',
+            type: 'error',
+        })
+    }
 }
 </script>

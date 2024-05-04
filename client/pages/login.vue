@@ -29,7 +29,15 @@ const userLoginData = reactive<UserLogin>({
     password: ''
 })
 
-function handleSubmitLoginForm() {
-    console.log('Login!');
+async function handleSubmitLoginForm() {
+    try {
+        await useAPIFetch("/auth/local");
+    } catch (err) {
+        ElNotification({
+            title: 'Error',
+            message: 'Sorry, you cannot login, please try again later!',
+            type: 'error',
+        })
+    }
 }
 </script>
