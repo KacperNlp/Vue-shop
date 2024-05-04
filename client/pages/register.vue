@@ -50,7 +50,17 @@ const userLoginData = reactive<UserRegister>({
 
 async function handleSubmitRegisterForm() {
     try {
-        await useAPIFetch("/auth/local/register");
+        const { userName, password, name, email } = userLoginData;
+        console.log('Register')
+
+        // await fetch("http://localhost:1337/api/auth/local/register",
+        //     {
+        //         name: name,
+        //         password: password,
+        //         email: email,
+        //         username: userName
+        //     }
+        // );
     } catch (err) {
         ElNotification({
             title: 'Error',
