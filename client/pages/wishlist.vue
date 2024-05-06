@@ -16,4 +16,8 @@
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
 const wishlist = [];
+
+const { $authUser } = useNuxtApp();
+
+$authUser();
 </script>

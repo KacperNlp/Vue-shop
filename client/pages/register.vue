@@ -33,7 +33,7 @@
             <el-input v-model="userLoginData.name" required />
           </el-form-item>
           <el-form-item label="Surname:" class="form-input-box">
-            <el-input v-model="userLoginData.suername" required />
+            <el-input v-model="userLoginData.surname" required />
           </el-form-item>
         </div>
         <el-button native-type="submit" type="success" class="mt-4"
@@ -70,12 +70,13 @@ const userLoginData = reactive<UserRegister>({
 
 async function handleSubmitRegisterForm() {
   try {
-    const { userName, password, name, email } = userLoginData;
+    const { userName, password, name, surname, email } = userLoginData;
 
     const res = await useFetch(`${config.public.baseURL}/auth/local/register`, {
       method: "POST",
       body: {
         name: name,
+        surname: surname,
         password: password,
         email: email,
         username: userName,
@@ -85,6 +86,10 @@ async function handleSubmitRegisterForm() {
     if (!!res.error.value) {
       throw new Error(res.error.value.data.error.message);
     }
+
+    const { jwt, user } = res.data.value;
+    window.localStorage.setItem("jwt", jwt);
+    window.localStorage.setItem("userData", JSON.stringify(user));
 
     router.push({ path: "/account" });
   } catch (err) {

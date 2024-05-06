@@ -53,6 +53,10 @@ async function handleSubmitLoginForm() {
       throw new Error(res.error.value.data.error.message);
     }
 
+    const { jwt, user } = res.data.value;
+    window.localStorage.setItem("jwt", jwt);
+    window.localStorage.setItem("userData", JSON.stringify(user));
+
     router.push({ path: "/account" });
   } catch (err) {
     ElNotification({

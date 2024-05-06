@@ -6,5 +6,8 @@ export const useAPIFetch = async (request: string) => {
     };
 
     const { data } = await useFetch(`${config.public.baseURL + request}`, { headers });
+
+    if(data.value.data)
     return data.value.data;
+    else return data.value;
 }

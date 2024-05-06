@@ -68,6 +68,17 @@ interface UserRegister extends UserLogin  {
     surname: string
 }
 
+interface UserData {
+    blocked: boolean
+    confirmed: boolean
+    createdAt: string
+    email: string
+    id: string | number
+    name: string
+    surname: string
+    username: string
+}
+
 interface ImgObject {
     data: {
         id: number,
@@ -108,6 +119,7 @@ export type {
     AddedProduct,
     UserLogin,
     UserRegister,
+    UserData,
     Category,
     Resource,
     ImageObject
