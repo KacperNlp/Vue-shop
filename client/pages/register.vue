@@ -23,7 +23,7 @@
                         <el-input v-model="userLoginData.suername" required />
                     </el-form-item>
                 </div>
-                <el-button type="success" class="mt-4">Register</el-button>
+                <el-button native-type="submit" type="success" class="mt-4">Register</el-button>
             </form>
             <div class="mt-4 text-sm text-center">
                 <span>
@@ -39,6 +39,9 @@
 import { HeadlinesTypes } from '@/enums/enums';
 import type { UserRegister } from '@/types/types';
 
+const config = useRuntimeConfig();
+const route = useRoute();
+
 const userLoginData = reactive<UserRegister>({
     userName: '',
     password: '',
@@ -51,20 +54,24 @@ const userLoginData = reactive<UserRegister>({
 async function handleSubmitRegisterForm() {
     try {
         const { userName, password, name, email } = userLoginData;
-        console.log('Register')
 
-        // await fetch("http://localhost:1337/api/auth/local/register",
-        //     {
-        //         name: name,
-        //         password: password,
-        //         email: email,
-        //         username: userName
-        //     }
-        // );
-    } catch (err) {
+        const response = await useFetch(`${config.public.baseURL}/auth/local/register`,
+            {
+                method: 'POST',
+                body: {
+                    name: name,
+                    password: password,
+                    email: email,
+                    username: userName
+                }
+            }
+        );
+
+        route.push({ path: '/account' });
+    } catch (err: Error) {
         ElNotification({
             title: 'Error',
-            message: 'Sorry, we have error with register, please try again later!',
+            message: 'Error',
             type: 'error',
         })
     }

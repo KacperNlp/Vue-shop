@@ -9,7 +9,7 @@
                 <el-form-item label="Password:" class="form-input-box">
                     <el-input v-model="userLoginData.password" type="password" required />
                 </el-form-item>
-                <el-button type="success" class="mt-4">Login</el-button>
+                <el-button native-type="submit" type="success" class="mt-4">Login</el-button>
             </form>
             <div class="mt-4 text-sm text-center">
                 <span>You don't have account? Then <NuxtLink to="/register" class="text-green-500 hover:text-green-400">
