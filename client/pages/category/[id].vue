@@ -33,6 +33,7 @@
             :discount="attributes.discount"
             :imgs="attributes.images.data"
             :reviews="attributes.reviews"
+            :loading="isLoading"
           />
         </li>
       </ul>
