@@ -108,6 +108,13 @@ interface Resource<T> {
     }
 }
 
+interface MessageFormData {
+    name: string,
+    email: string,
+    phone: string,
+    message: string,
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
@@ -122,5 +129,6 @@ export type {
     UserData,
     Category,
     Resource,
-    ImageObject
+    ImageObject,
+    MessageFormData
 }

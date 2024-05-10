@@ -2,9 +2,7 @@
   <AppSectionBox class="flex flex-col md:flex-row gap-4 lg:gap-8 xl:gap-16">
     <AppAccountSideNav />
     <div>
-      <AppHeadline :headlineType="HeadlinesTypes.H2"
-        >Hi {{ userData.name }}!</AppHeadline
-      >
+      <AppHeadline :headlineType="HeadlinesTypes.H2">Hi {{ userData.name }}!</AppHeadline>
       <div class="flex flex-col gap-2">
         <AppHeadline :headlineType="HeadlinesTypes.H3">
           Inforamcję o koncie:
@@ -37,11 +35,14 @@ const userData = reactive<UserData>({
 
 async function loadUserData() {
   try {
-    const loggedUserData = JSON.parse(window.localStorage.getItem("userData"));
-    const data = await useAPIFetch(`/users/${loggedUserData.id}`);
+    const loggedUserJSONData = window.localStorage.getItem("userData");
+    if (loggedUserJSONData) {
+      const loggedUserData = JSON.parse(loggedUserJSONData);
+      const data = await useAPIFetch(`/users/${loggedUserData.id}`);
 
-    for (const [key, value] of Object.entries(data)) {
-      userData[key] = value;
+      for (const [key, value] of Object.entries(data)) {
+        userData[key] = value;
+      }
     }
   } catch (err) {
     ElNotification({
