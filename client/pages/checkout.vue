@@ -1,12 +1,12 @@
 <template>
-  <AppSectionBox class="flex flex-col gap-2 md:grid md:grid-cols-[2fr_1fr]">
+  <AppSectionBox class="flex flex-col gap-4 md:grid md:grid-cols-[2fr_1fr]">
     <div>
       <AppHeadline :headlineType="HeadlinesTypes.H1">Checkout</AppHeadline>
-      <span v-if="isLoggedIn" class="text-sm text-gray-600">Already have an account?
+      <span v-if="!isLoggedIn" class="text-sm text-gray-600">Already have an account?
         <NuxtLink to="/login">Log in</NuxtLink>.
       </span>
       <form action="POST" @submit.prevent="handleSubmitFinishOrder" class="max-w-2xl mt-4">
-        <section class="my-4">
+        <section class="my-6">
           <AppHeadline :headlineType="HeadlinesTypes.H3">Your data:</AppHeadline>
           <div class="flex flex-col gap-4 md:grid md:grid-cols-2">
             <el-form-item label="First Name:" class="form-input-box">
@@ -23,7 +23,7 @@
             </el-form-item>
           </div>
         </section>
-        <section class="my-4">
+        <section class="my-6">
           <AppHeadline :headlineType="HeadlinesTypes.H3">Address:</AppHeadline>
           <div class="flex flex-col gap-4 md:grid md:grid-cols-2">
             <el-form-item label="Street Address:" class="form-input-box">
