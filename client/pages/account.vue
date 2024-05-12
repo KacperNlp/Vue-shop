@@ -22,6 +22,8 @@ import type { UserData } from "@/types/types";
 
 const { $authUser } = useNuxtApp();
 
+const router = useRouter();
+
 const userData = reactive<UserData>({
   blocked: false,
   confirmed: false,
@@ -36,6 +38,12 @@ const userData = reactive<UserData>({
 async function loadUserData() {
   try {
     const loggedUserJSONData = window.localStorage.getItem("userData");
+    const userJWT = window.localStorage.getItem("jwt");
+
+    if (!userJWT) {
+      router.push({ path: '/login' });
+    }
+
     if (loggedUserJSONData) {
       const loggedUserData = JSON.parse(loggedUserJSONData);
       const data = await useAPIFetch(`/users/${loggedUserData.id}`);

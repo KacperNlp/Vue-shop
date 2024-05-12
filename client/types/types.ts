@@ -27,19 +27,20 @@ type ProductAttributes = {
     price: number,
     discount: null | number,
     images: {
-        data: ImageObject[]
+        data: ImageObject[] | null
     },
+    thumbnail: string,
     isNew: boolean,
-    reviews: ProductReviewsSummary,
+    reviews: ProductReviewsSummary | null,
     category: {
-        data: Category[]
+        data: Category[] | null
     },
     sku: string,
     stock: number,
 }
 
 type Product = {
-    id: string,
+    id: string | number,
     attributes: ProductAttributes
 }
 
@@ -48,7 +49,13 @@ type BreadcrumbType = {
     path: string
 }
 
-interface AddedProduct extends Product {
+interface AddedProduct {
+    id: string,
+    name: string,
+    price: number,
+    discount: null | number,
+    thumbnail: string,
+    reviews: ProductReviewsSummary | null,
     quantity: number
 }
 

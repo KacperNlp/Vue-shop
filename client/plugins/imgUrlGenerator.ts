@@ -3,7 +3,6 @@ export default defineNuxtPlugin(() => {
       provide: {
         imgUrl: (path: string) => {
             const config = useRuntimeConfig();
-            console.log(config);
 
             return config.public.uploadUrl + path;
         }
