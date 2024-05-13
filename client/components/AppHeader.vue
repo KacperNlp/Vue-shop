@@ -8,14 +8,25 @@
         <AppLogo />
         <nav
           class="fixed lg:static top-0 left-[-105%] w-screen lg:w-auto h-screen lg:h-auto bg-white p-8 lg:p-2 duration-500 shadow-lg lg:shadow-none z-30"
-          :class="{ '!left-0': isNavVisible }">
+          :class="{ '!left-0': isNavVisible }"
+        >
           <ul class="flex flex-col lg:flex-row gap-2 lg:gap-6">
-            <li v-for="{ url, name, isVisibleOnDesktop } in store.mainNav" :class="{ 'md:hidden': !isVisibleOnDesktop }"
-              :key="name">
-              <NuxtLink :to="url" class="text-gray-500 hover:text-indigo-600 text-sm duration-200">{{ name }}</NuxtLink>
+            <li
+              v-for="{ url, name, isVisibleOnDesktop } in store.mainNav"
+              :class="{ 'md:hidden': !isVisibleOnDesktop }"
+              :key="name"
+            >
+              <NuxtLink
+                :to="url"
+                class="text-gray-500 hover:text-indigo-600 text-sm duration-200"
+                >{{ name }}</NuxtLink
+              >
             </li>
           </ul>
-          <button @click="handleClickCloseNav" class="absolute top-4 right-8 lg:hidden">
+          <button
+            @click="handleClickCloseNav"
+            class="absolute top-4 right-8 lg:hidden"
+          >
             <Icon name="material-symbols:close" width="24" height="24" />
           </button>
         </nav>
@@ -23,27 +34,45 @@
       <div class="flex gap-4">
         <div class="hidden lg:flex items-center">
           <NuxtLink to="/wishlist">
-            <Icon name="mdi:heart-outline" width="24" height="24" class="text-gray-600 hover:text-indigo-600" />
+            <Icon
+              name="mdi:heart-outline"
+              width="24"
+              height="24"
+              class="text-gray-600 hover:text-indigo-600"
+            />
           </NuxtLink>
         </div>
         <div class="hidden lg:flex items-center">
           <NuxtLink to="/account">
-            <Icon name="mdi:user-outline" width="24" height="24" class="text-gray-600 hover:text-indigo-600" />
+            <Icon
+              name="mdi:user-outline"
+              width="24"
+              height="24"
+              class="text-gray-600 hover:text-indigo-600"
+            />
           </NuxtLink>
         </div>
         <div class="flex items-center">
           <button @click="handleClickOpenCheckout" class="relative">
-            <span v-if="cart.numberOfProductsAddedToCart"
-              class="absolute top-[-4px] right-[-4px] text-[10px] flex justify-center items-center w-4 h-4 bg-green-600 text-gray-50 rounded-lg">{{
-          cart.numberOfProductsAddedToCart }}</span>
-            <Icon name="ion:cart-outline" width="24" height="24" class="text-gray-600 hover:text-indigo-600" />
+            <span
+              v-if="cart.numberOfProductsAddedToCart"
+              class="absolute top-[-4px] right-[-4px] text-[10px] flex justify-center items-center w-4 h-4 bg-green-600 text-gray-50 rounded-lg"
+              >{{ cart.numberOfProductsAddedToCart }}</span
+            >
+            <Icon
+              name="ion:cart-outline"
+              width="24"
+              height="24"
+              class="text-gray-600 hover:text-indigo-600"
+            />
           </button>
         </div>
       </div>
     </div>
     <section
       class="fixed top-0 right-[-100%] md:right-[-400px] flex justify-center items-center w-[90vw] md:w-96 h-screen bg-white shadow-lg duration-500"
-      :class="{ '!right-0': isCheckoutVisible }">
+      :class="{ '!right-0': isCheckoutVisible }"
+    >
       <button @click="handleClickCloseCheckout" class="absolute top-4 right-8">
         <Icon name="material-symbols:close" width="24" height="24" />
       </button>
@@ -55,6 +84,7 @@
 <script setup lang="ts">
 const store = useWebsiteNavigation();
 const cart = useCart();
+const router = useRouter();
 
 const isNavVisible = ref(false);
 const isCheckoutVisible = ref(false);
@@ -74,6 +104,10 @@ function handleClickOpenCheckout() {
 function handleClickCloseCheckout() {
   isCheckoutVisible.value = false;
 }
+
+router.beforeEach(() => {
+  isCheckoutVisible.value = false;
+});
 </script>
 
 <style>
