@@ -4,7 +4,7 @@
     class="flex flex-col justify-between h-full w-full py-16"
   >
     <div class="w-full px-8">
-      <ul>
+      <ul class="flex flex-col gap-2">
         <li
           v-for="{
             id,
