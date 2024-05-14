@@ -1,7 +1,7 @@
 <template>
   <el-card class="md:sticky md:top-20">
     <AppHeadline :headlineType="HeadlinesTypes.H2">Order summary</AppHeadline>
-    <div>
+    <div class="my-4">
       <ul class="flex flex-col gap-2">
         <li
           v-for="{
@@ -15,11 +15,19 @@
           } in cart.addedProducts"
           :key="id"
         >
-          {{ name }}
+          <AppCartProductSidebar
+            :id="id"
+            :name="name"
+            :price="price"
+            :discount="discount"
+            :thumbnail="thumbnail"
+            :quantity="quantity"
+            :reviews="reviews"
+          />
         </li>
       </ul>
     </div>
-    <div>
+    <div class="my-8">
       <form @submit.prevent="handleSubmitApplyCoupon" class="flex gap-1">
         <el-form-item class="form-input-box w-full">
           <el-input v-model="coupon" required placeholder="Coupon Code" />
@@ -27,18 +35,18 @@
         <el-button native-type="submit" type="success">Apply</el-button>
       </form>
     </div>
-    <div>
-      <div>
+    <div class="flex flex-col gap-2">
+      <div class="flex justify-between border-b py-2">
         <span>Subtotal</span>
-        <span>90 zł</span>
+        <span>{{ $currency(cart.getCartTotalAmount) }}</span>
       </div>
-      <div>
+      <div class="flex justify-between border-b py-2">
         <span>Shipping</span>
-        <span>+0 zł</span>
+        <span>+{{ $currency(shipping) }}</span>
       </div>
-      <div>
-        <span>Total</span>
-        <span>30 zł</span>
+      <div class="flex justify-between py-2">
+        <strong>Total</strong>
+        <strong>{{ $currency(total) }}</strong>
       </div>
     </div>
   </el-card>
@@ -46,6 +54,13 @@
 
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
+
+interface Props {
+  shipping: number;
+  total: number;
+}
+
+defineProps<Props>();
 
 const cart = useCart();
 

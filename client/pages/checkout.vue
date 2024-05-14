@@ -1,5 +1,8 @@
 <template>
-  <AppSectionBox class="flex flex-col gap-4 md:grid md:grid-cols-[2fr_1fr]">
+  <AppSectionBox
+    v-if="cart.numberOfProductsAddedToCart"
+    class="flex flex-col gap-4 md:grid md:grid-cols-[2fr_1fr]"
+  >
     <div>
       <AppHeadline :headlineType="HeadlinesTypes.H1">Checkout</AppHeadline>
       <span v-if="!isLoggedIn" class="text-sm text-gray-600"
@@ -48,10 +51,10 @@
             >Select Shipping Method</AppHeadline
           >
           <el-radio-group v-model="orderData.shipping">
-            <el-radio value="10" size="large" class="bg-white" border
+            <el-radio :value="10" size="large" class="bg-white" border
               >Standard Shipping 10zł</el-radio
             >
-            <el-radio value="25" size="large" class="bg-white" border
+            <el-radio :value="25" size="large" class="bg-white" border
               >Express Shipping 25zł</el-radio
             >
           </el-radio-group>
@@ -102,13 +105,24 @@
       </form>
     </div>
     <div>
-      <AppCartOrderSummary />
+      <AppCartOrderSummary
+        :shipping="orderData.shipping"
+        :total="orderData.total"
+      />
     </div>
+  </AppSectionBox>
+  <AppSectionBox v-else class="text-center">
+    <AppHeadline :headlineType="HeadlinesTypes.H2">
+      Your cart is empty
+      <Icon name="mdi:cart-remove" width="32" height="32" class="ml-2" />
+    </AppHeadline>
   </AppSectionBox>
 </template>
 
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
+
+const cart = useCart();
 
 const orderData = reactive({
   email: null,
@@ -118,9 +132,11 @@ const orderData = reactive({
   zip: null,
   address: null,
   phone: null,
-  shipping: "10",
+  shipping: 10,
   paymentOption: "card",
   orderNote: "",
+  total: 0,
+  products: [],
 });
 
 const isLoggedIn = computed(() => {
@@ -147,5 +163,14 @@ async function fetchUserData() {
   } catch (err) {}
 }
 
+function setTotalCartAmount() {
+  orderData.total = cart.getCartTotalAmount + orderData.shipping;
+}
+
+watch(cart.addedProducts, setTotalCartAmount);
+
+watch(orderData.shipping, setTotalCartAmount);
+
 await fetchUserData();
+setTotalCartAmount();
 </script>
