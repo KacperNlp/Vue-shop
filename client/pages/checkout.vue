@@ -166,8 +166,7 @@ async function handleSubmitFinishOrder() {
       type: "success",
     });
 
-    // cart.clearWholeCart();
-    console.log(cart);
+    cart.clearWholeCart();
 
     router.push({ path: "thank-you" });
   } catch (err) {

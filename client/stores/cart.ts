@@ -58,7 +58,7 @@ export const useCart = defineStore('cart', {
         },
 
         clearWholeCart() {
-            console.log(this.addedProducts)
+            this.addedProducts = [];
         },
     }
 })
