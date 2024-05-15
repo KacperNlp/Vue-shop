@@ -49,6 +49,15 @@
         <strong>{{ $currency(total) }}</strong>
       </div>
     </div>
+    <div class="mt-3">
+      <el-button
+        @click="$emit('submitOrder')"
+        native-type="submit"
+        type="success"
+        class="w-full"
+        >Buy</el-button
+      >
+    </div>
   </el-card>
 </template>
 
@@ -66,7 +75,16 @@ const cart = useCart();
 
 const coupon = ref("");
 
-function handleSubmitApplyCoupon() {
-  console.log("Dodaj kupon");
+async function handleSubmitApplyCoupon() {
+  try {
+    const data = await useAPIFetch("/code?populate=*");
+    console.log(data);
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "Sorry, we have problem setting your coupon code!",
+      type: "error",
+    });
+  }
 }
 </script>

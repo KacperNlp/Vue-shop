@@ -8,11 +8,7 @@
       <span v-if="!isLoggedIn" class="text-sm text-gray-600"
         >Already have an account? <NuxtLink to="/login">Log in</NuxtLink>.
       </span>
-      <form
-        action="POST"
-        @submit.prevent="handleSubmitFinishOrder"
-        class="max-w-2xl mt-4"
-      >
+      <form action="POST" class="max-w-2xl mt-4">
         <section class="my-6">
           <AppHeadline :headlineType="HeadlinesTypes.H3"
             >Your data:</AppHeadline
@@ -108,6 +104,7 @@
       <AppCartOrderSummary
         :shipping="orderData.shipping"
         :total="orderData.total"
+        @submitOrder="handleSubmitFinishOrder"
       />
     </div>
   </AppSectionBox>
@@ -123,8 +120,11 @@
 import { HeadlinesTypes } from "@/enums/enums";
 
 const cart = useCart();
+const config = useRuntimeConfig();
+const router = useRouter();
 
 const orderData = reactive({
+  user: null,
   email: null,
   firstName: null,
   lastName: null,
@@ -136,7 +136,7 @@ const orderData = reactive({
   paymentOption: "card",
   orderNote: "",
   total: 0,
-  products: [],
+  products: cart.addedProducts,
 });
 
 const isLoggedIn = computed(() => {
@@ -144,8 +144,39 @@ const isLoggedIn = computed(() => {
   return isLoggedIn;
 });
 
-function handleSubmitFinishOrder() {
-  console.log("Finist order");
+async function handleSubmitFinishOrder() {
+  try {
+    const headers = {
+      Authorization: `bearer ${config.public.apiKey}`,
+    };
+
+    await useFetch(`${config.public.baseURL}/orders`, {
+      method: "POST",
+      headers,
+      body: {
+        data: {
+          ...orderData,
+        },
+      },
+    });
+
+    ElNotification({
+      title: "Success",
+      message: "Thank you! Your ordred is just send to us!",
+      type: "success",
+    });
+
+    // cart.clearWholeCart();
+    console.log(cart);
+
+    router.push({ path: "thank-you" });
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "We cannot send your order, please try later!",
+      type: "error",
+    });
+  }
 }
 
 async function fetchUserData() {
@@ -158,9 +189,18 @@ async function fetchUserData() {
       const loggedUserData = JSON.parse(loggedUserJSONData);
       const data = await useAPIFetch(`/users/${loggedUserData.id}`);
 
-      console.log(data);
+      orderData.user = loggedUserData.id;
+      orderData.email = data.email;
+      orderData.firstName = data.name;
+      orderData.lastName = data.surname;
     }
-  } catch (err) {}
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "We cannot fetch user data!",
+      type: "error",
+    });
+  }
 }
 
 function setTotalCartAmount() {
@@ -169,7 +209,7 @@ function setTotalCartAmount() {
 
 watch(cart.addedProducts, setTotalCartAmount);
 
-watch(orderData.shipping, setTotalCartAmount);
+watch(() => orderData.shipping, setTotalCartAmount);
 
 await fetchUserData();
 setTotalCartAmount();

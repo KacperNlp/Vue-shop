@@ -55,6 +55,10 @@ export const useCart = defineStore('cart', {
         changeProductQuantity(productId: string, quantity: number) {
             const indexOfProduct = this.addedProducts.findIndex(({ id }) => id === productId);
             this.addedProducts[indexOfProduct].quantity = quantity;
-        }
+        },
+
+        clearWholeCart() {
+            console.log(this.addedProducts)
+        },
     }
 })

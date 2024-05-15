@@ -15,7 +15,7 @@
     "address": {
       "type": "string"
     },
-    "firstname": {
+    "firstName": {
       "type": "string"
     },
     "user": {
@@ -33,13 +33,19 @@
     "phone": {
       "type": "string"
     },
-    "lastname": {
+    "lastName": {
       "type": "string"
     },
     "orderNote": {
       "type": "text"
     },
     "zip": {
+      "type": "string"
+    },
+    "shipping": {
+      "type": "integer"
+    },
+    "paymentOption": {
       "type": "string"
     }
   }
