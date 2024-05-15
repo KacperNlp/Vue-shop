@@ -2,8 +2,10 @@
   <AppSectionBox class="flex flex-col md:flex-row gap-4 lg:gap-8 xl:gap-16">
     <AppAccountSideNav />
     <div>
-      <AppHeadline :headlineType="HeadlinesTypes.H2">Hi {{ userData.name }}!</AppHeadline>
-      <div class="flex flex-col gap-2">
+      <AppHeadline :headlineType="HeadlinesTypes.H2"
+        >Hi {{ userData.name }}!</AppHeadline
+      >
+      <section class="flex flex-col gap-2">
         <AppHeadline :headlineType="HeadlinesTypes.H3">
           Inforamcję o koncie:
         </AppHeadline>
@@ -11,7 +13,10 @@
         <span>Nazwisko: {{ userData.surname }}</span>
         <span>Nick: {{ userData.username }}</span>
         <span>email: {{ userData.email }}</span>
-      </div>
+      </section>
+      <section class="mt-8">
+        <AppHeadline :headlineType="HeadlinesTypes.H3"> Orders </AppHeadline>
+      </section>
     </div>
   </AppSectionBox>
 </template>
@@ -41,16 +46,21 @@ async function loadUserData() {
     const userJWT = window.localStorage.getItem("jwt");
 
     if (!userJWT) {
-      router.push({ path: '/login' });
+      router.push({ path: "/login" });
     }
 
     if (loggedUserJSONData) {
       const loggedUserData = JSON.parse(loggedUserJSONData);
-      const data = await useAPIFetch(`/users/${loggedUserData.id}`);
+      const [userDataFromAPI, userOrders] = Promise.all([
+        await useAPIFetch(`/users/${loggedUserData.id}`),
+        await useAPIFetch(`/orders?user=${loggedUserData.id}`),
+      ]);
 
-      for (const [key, value] of Object.entries(data)) {
+      for (const [key, value] of Object.entries(userDataFromAPI)) {
         userData[key] = value;
       }
+
+      console.log(userOrders);
     }
   } catch (err) {
     ElNotification({
