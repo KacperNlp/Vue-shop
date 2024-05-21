@@ -10,7 +10,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async create(ctx) {
-    const { products } = ctx.request.body.data;
+    const { products, paymentOption } = ctx.request.body.data;
 
     const lineItems = await Promise.all(
       products.map(async (product) => {
@@ -40,7 +40,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         shipping_address_collection: {
           allowed_countries: ["US", "PL"],
         },
-        payment_method_types: ["card"],
+        payment_method_types: [paymentOption],
       });
 
       await strapi.service("api::order.order").create({

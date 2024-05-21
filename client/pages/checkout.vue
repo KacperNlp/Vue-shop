@@ -68,21 +68,13 @@
                 class="text-gray-600 mr-2"
               />Credit Card
             </el-radio>
-            <el-radio value="pay-pal" size="large" class="bg-white" border>
+            <el-radio value="paypal" size="large" class="bg-white" border>
               <Icon
                 name="ic:baseline-paypal"
                 width="24"
                 height="24"
                 class="text-gray-600 mr-2"
               />PayPal</el-radio
-            >
-            <el-radio value="cash" size="large" class="bg-white" border>
-              <Icon
-                name="vaadin:cash"
-                width="24"
-                height="24"
-                class="text-gray-600 mr-2"
-              />Cash</el-radio
             >
           </el-radio-group>
         </section>
