@@ -20,6 +20,7 @@ export default defineNuxtConfig({
       baseURL: process.env.STRAPI_BACKEND_URL,
       apiKey: process.env.STRAPI_API_KEY,
       uploadUrl: process.env.BACKEND_UPLOAD_URL,
+      stripeKey: process.env.STRIPE_API_KEY
     },
   },
   nitro: {

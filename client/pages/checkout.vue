@@ -118,10 +118,15 @@
 
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
+import { loadStripe } from "@stripe/stripe-js/pure";
+
+loadStripe.setLoadParameters({ advancedFraudSignals: false });
 
 const cart = useCart();
 const config = useRuntimeConfig();
 const router = useRouter();
+
+const stripe = await loadStripe(config.public.stripeKey);
 
 const orderData = reactive({
   user: null,
@@ -150,7 +155,7 @@ async function handleSubmitFinishOrder() {
       Authorization: `bearer ${config.public.apiKey}`,
     };
 
-    await useFetch(`${config.public.baseURL}/orders`, {
+    const res = await useFetch(`${config.public.baseURL}/orders`, {
       method: "POST",
       headers,
       body: {
@@ -158,6 +163,10 @@ async function handleSubmitFinishOrder() {
           ...orderData,
         },
       },
+    });
+
+    await stripe.redirectToCheckout({
+      sessionId: res.data.value.stripeSession.id,
     });
 
     ElNotification({
