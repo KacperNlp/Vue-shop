@@ -1,7 +1,7 @@
 <template>
   <AppSectionBox class="flex flex-col md:flex-row gap-4 lg:gap-8 xl:gap-16">
     <AppAccountSideNav />
-    <div>
+    <div class="w-full max-w-screen-md">
       <AppHeadline :headlineType="HeadlinesTypes.H2"
         >Hi {{ userData.name }}!</AppHeadline
       >
@@ -14,8 +14,29 @@
         <span>Nick: {{ userData.username }}</span>
         <span>email: {{ userData.email }}</span>
       </section>
-      <section class="mt-8">
-        <AppHeadline :headlineType="HeadlinesTypes.H3"> Orders </AppHeadline>
+      <section v-if="userOrders.length" class="mt-8">
+        <AppHeadline :headlineType="HeadlinesTypes.H3">Orders</AppHeadline>
+        <el-table :data="userOrders" stripe>
+          <el-table-column label="Date" width="180">
+            <template #default="scope">
+              <span>{{
+                getFormattedDate(scope.row.attributes.createdAt)
+              }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="name" label="Total" width="180">
+            <template #default="scope">
+              <span>{{
+                getOrderTotalCost(scope.row.attributes.products)
+              }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Status">
+            <template #default="scope">
+              <span>W trakcie</span>
+            </template>
+          </el-table-column>
+        </el-table>
       </section>
     </div>
   </AppSectionBox>
@@ -25,10 +46,11 @@
 import { HeadlinesTypes } from "@/enums/enums";
 import type { UserData } from "@/types/types";
 
-const { $authUser } = useNuxtApp();
+const { $authUser, $currency } = useNuxtApp();
 
 const router = useRouter();
 
+const userOrders = ref([]);
 const userData = reactive<UserData>({
   blocked: false,
   confirmed: false,
@@ -51,7 +73,7 @@ async function loadUserData() {
 
     if (loggedUserJSONData) {
       const loggedUserData = JSON.parse(loggedUserJSONData);
-      const [userDataFromAPI, userOrders] = Promise.all([
+      const [userDataFromAPI, userOrdersData] = await Promise.all([
         await useAPIFetch(`/users/${loggedUserData.id}`),
         await useAPIFetch(`/orders?user=${loggedUserData.id}`),
       ]);
@@ -60,7 +82,8 @@ async function loadUserData() {
         userData[key] = value;
       }
 
-      console.log(userOrders);
+      console.log(userOrdersData);
+      userOrders.value = userOrdersData;
     }
   } catch (err) {
     ElNotification({
@@ -69,6 +92,29 @@ async function loadUserData() {
       type: "error",
     });
   }
+}
+
+function getFormattedDate(isoString: string) {
+  const date = new Date(isoString);
+
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  const month = date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth();
+
+  return `${day}-${month}-${date.getFullYear()}`;
+}
+
+function getOrderTotalCost(products: []) {
+  let totalCost = 0;
+
+  products.forEach(({ discount, quantity, price }) => {
+    if (discount) {
+      totalCost += discount * quantity;
+    } else {
+      totalCost += price * quantity;
+    }
+  });
+
+  return $currency(totalCost);
 }
 
 $authUser();
