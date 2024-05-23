@@ -127,7 +127,10 @@
         class="uppercase text-center"
         >Can interested you:</AppHeadline
       >
-      <!-- <AppProductsSlider /> -->
+      <AppProductsSlider
+        :category="product.category.data.attributes.name"
+        :productToAvoid="Number(route.params.id)"
+      />
     </AppSectionBox>
   </div>
 </template>

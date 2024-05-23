@@ -1,14 +1,14 @@
 <template>
   <div v-if="products.length">
     <Splide aria-label="..." :options="SLIDER_CONFIG">
-      <SplideSlide v-for="product in products" :key="product.id">
+      <SplideSlide v-for="{ id, attributes } in products" :key="id">
         <AppProductBox
-          :id="product.id"
-          :name="product.name"
-          :price="product.price"
-          :discount="product.discount"
-          :reviews="product.reviews"
-          :img="product.img"
+          :id="id"
+          :name="attributes.name"
+          :price="attributes.price"
+          :discount="attributes.discount"
+          :reviews="attributes.reviews"
+          :imgs="attributes.images.data"
         />
       </SplideSlide>
     </Splide>
@@ -18,6 +18,11 @@
 <script setup lang="ts">
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import type { Product } from "@/types/types";
+
+interface Props {
+  category: string;
+  productToAvoid: number;
+}
 
 const SLIDER_CONFIG = {
   perPage: 5,
@@ -38,83 +43,25 @@ const SLIDER_CONFIG = {
   },
 };
 
-const products = reactive<Product[]>([
-  {
-    id: "1",
-    name: "Product 1",
-    price: 13,
-    discount: null,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 3,
-      review: 4.2,
-    },
-  },
-  {
-    id: "2",
-    name: "Product 2",
-    price: 12,
-    discount: null,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 5,
-      review: 3.5,
-    },
-  },
-  {
-    id: "3",
-    name: "Product 3",
-    price: 10,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-  {
-    id: "4",
-    name: "Product 4",
-    price: 25,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-  {
-    id: "222",
-    name: "Product 2",
-    price: 12,
-    discount: null,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 5,
-      review: 3.5,
-    },
-  },
-  {
-    id: "33",
-    name: "Product 3",
-    price: 10,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-  {
-    id: "423",
-    name: "Product 4",
-    price: 25,
-    discount: 7,
-    img: "/imgs/tshirt.jpg",
-    reviews: {
-      numberOfReviews: 0,
-      review: 0,
-    },
-  },
-]);
+const props = defineProps<Props>();
+
+const products = ref([]);
+
+async function fetchProductsByCategory() {
+  try {
+    products.value = await useAPIFetch(
+      `/products?filters[$and][0][category][url][$eq]=/${props.category}&filters[$and][1][id][$ne]=${props.productToAvoid}&populate=*`
+    );
+  } catch (err) {
+    console.error(err);
+
+    ElNotification({
+      title: "Error",
+      message: "We cannot get products! Sorry",
+      type: "error",
+    });
+  }
+}
+
+await fetchProductsByCategory();
 </script>
