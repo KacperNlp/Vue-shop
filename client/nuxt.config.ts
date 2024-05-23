@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     'nuxt-icon',
     '@element-plus/nuxt',
+    "@stefanobartoletti/nuxt-social-share"
   ],
   runtimeConfig: {
     public: {

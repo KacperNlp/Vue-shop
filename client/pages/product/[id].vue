@@ -104,6 +104,9 @@
             <span class="ml-2">Share</span>
           </button>
         </div>
+        <div class="mt-4">
+          <AppSocialMediaShare headlineTxt="Share on social media:" />
+        </div>
       </div>
     </AppSectionBox>
     <AppSectionBox>
@@ -172,7 +175,13 @@ function addToWishlist() {
 }
 
 function handleClickShareProduct() {
-  console.log("Share");
+  navigator.clipboard.writeText(window.location.href);
+
+  ElNotification({
+    title: "Success",
+    message: "Link copied to clipboard!",
+    type: "success",
+  });
 }
 
 function handleClickAddProductToCart() {
