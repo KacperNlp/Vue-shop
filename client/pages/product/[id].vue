@@ -143,6 +143,7 @@ import { HeadlinesTypes } from "@/enums/enums";
 import type { ProductAttributes } from "@/types/types";
 
 const cart = useCart();
+const config = useRuntimeConfig();
 const route = useRoute();
 const { $imgUrl } = useNuxtApp();
 
@@ -173,8 +174,22 @@ const reviewsTabHeadline = computed(() => {
   return `Reviews (0)`;
 });
 
-function addToWishlist() {
-  console.log("Add to wishlist");
+async function addToWishlist() {
+  try {
+    const headers = {
+      Authorization: `bearer ${config.public.apiKey}`,
+    };
+
+    const res = await useFetch(`${config.public.baseURL}/wishlists/6`, {
+      method: "PUT",
+      headers,
+      body: {
+        data: {
+          products: [route.params.id],
+        },
+      },
+    });
+  } catch (err) {}
 }
 
 function handleClickShareProduct() {
