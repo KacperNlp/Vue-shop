@@ -65,3 +65,9 @@ async function fetchProductsByCategory() {
 
 await fetchProductsByCategory();
 </script>
+
+<style>
+.splide__arrow[disabled] {
+  display: none;
+}
+</style>
