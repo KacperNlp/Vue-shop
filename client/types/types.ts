@@ -63,6 +63,10 @@ type CartStore = {
     addedProducts: AddedProduct[]
 }
 
+type WishlistStore = {
+    productsList: number[]
+}
+
 interface UserLogin  {
     userName: string,
     password: string
@@ -130,6 +134,7 @@ export type {
     ProductAttributes,
     BreadcrumbType,
     CartStore,
+    WishlistStore,
     AddedProduct,
     UserLogin,
     UserRegister,

@@ -81,7 +81,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::wishlist.wishlist",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

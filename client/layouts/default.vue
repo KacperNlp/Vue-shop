@@ -5,3 +5,9 @@
     <AppFooter />
   </div>
 </template>
+
+<script setup lang="ts">
+const wishlistStore = useWishlist();
+
+await wishlistStore.fetchProductsList();
+</script>
