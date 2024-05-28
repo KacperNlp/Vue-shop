@@ -30,9 +30,8 @@ export const useWishlist = defineStore('wishlist', {
 
         async fetchProductsList() {
             try {
-                const { data } = await useAPIFetch(`/wishlists?user=4`);
-                console.log(data)
-                this.productsList = data ? data : [];
+                const data = await useAPIFetch(`/wishlists?filters[user][id][$eq]=4&populate[products][populate]=images`);
+                this.productsList = data[0].attributes.products.data || [];
             } catch(err) {
                 console.log(err)
             }

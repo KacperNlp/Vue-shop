@@ -64,7 +64,7 @@ type CartStore = {
 }
 
 type WishlistStore = {
-    productsList: number[]
+    productsList: Product[]
 }
 
 interface UserLogin  {

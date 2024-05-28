@@ -4,7 +4,18 @@
     <div class="w-full">
       <AppHeadline :headlineType="HeadlinesTypes.H2">Your wishlist</AppHeadline>
       <div v-if="wishlist.length">
-        <span>Your products!</span>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <li v-for="{ attributes, id } in wishlist" :key="id">
+            <AppProductBox
+              :id="id"
+              :name="attributes.name"
+              :price="attributes.price"
+              :discount="attributes.discount"
+              :reviews="attributes.reviews"
+              :imgs="attributes.images.data"
+            />
+          </li>
+        </ul>
       </div>
       <div v-else class="flex justify-center">
         <el-empty description="Your wishlist is empty...." />
@@ -19,7 +30,7 @@ import { HeadlinesTypes } from "@/enums/enums";
 const { $authUser } = useNuxtApp();
 const wishlistStore = useWishlist();
 
-const wishlist = computed(async () => await wishlistStore.getProductsList);
+const wishlist = computed(() => wishlistStore.getProductsList);
 
 $authUser();
 </script>
