@@ -45,9 +45,6 @@
       "target": "api::category.category",
       "inversedBy": "products"
     },
-    "reviews": {
-      "type": "json"
-    },
     "stock": {
       "type": "integer"
     },
@@ -56,6 +53,11 @@
     },
     "shortDesc": {
       "type": "text"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
     }
   }
 }
