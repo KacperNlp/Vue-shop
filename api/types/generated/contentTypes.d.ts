@@ -921,6 +921,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     zip: Attribute.String;
     shipping: Attribute.Integer;
     paymentOption: Attribute.String;
+    status: Attribute.String & Attribute.DefaultTo<'InProgress'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

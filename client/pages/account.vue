@@ -33,7 +33,7 @@
           </el-table-column>
           <el-table-column label="Status">
             <template #default="scope">
-              <span>W trakcie</span>
+              <span>{{ getOrderStatus(scope.row.attributes.status) }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { HeadlinesTypes } from "@/enums/enums";
+import { HeadlinesTypes, OrderStatus, OrderStatusText } from "@/enums/enums";
 import type { UserData } from "@/types/types";
 
 const { $authUser, $currency } = useNuxtApp();
@@ -78,6 +78,7 @@ async function loadUserData() {
         await useAPIFetch(`/orders?user=${loggedUserData.id}`),
       ]);
 
+      console.log(userDataFromAPI);
       for (const [key, value] of Object.entries(userDataFromAPI)) {
         userData[key] = value;
       }
@@ -115,6 +116,13 @@ function getOrderTotalCost(products: []) {
   });
 
   return $currency(totalCost);
+}
+
+function getOrderStatus(orderStatus: OrderStatus) {
+  const statusObject = OrderStatusText.find(
+    (item) => item.name === orderStatus
+  );
+  return statusObject ? statusObject.text : "Unknown status";
 }
 
 $authUser();

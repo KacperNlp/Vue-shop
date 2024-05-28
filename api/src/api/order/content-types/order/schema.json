@@ -47,6 +47,10 @@
     },
     "paymentOption": {
       "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "default": "InProgress"
     }
   }
 }

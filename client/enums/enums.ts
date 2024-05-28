@@ -7,6 +7,29 @@ enum HeadlinesTypes {
     H6 = 'h6'
 }
 
+enum OrderStatus {
+    InProgress = 'InProgress',
+    Done = 'Done',
+    Delivered = 'InProgress',
+}
+
+const OrderStatusText = [
+    {
+        name: OrderStatus.InProgress,
+        text: 'W trakcie realizacji'
+    },
+    {
+        name: OrderStatus.Done,
+        text: 'Gotowe do wysyłki'
+    },
+    {
+        name: OrderStatus.Delivered,
+        text: 'Dostarczone'
+    }
+]
+
 export {
-    HeadlinesTypes
+    HeadlinesTypes,
+    OrderStatus,
+    OrderStatusText
 }
