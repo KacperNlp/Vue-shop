@@ -88,7 +88,19 @@
           </span>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 text-sm text-gray-400">
-          <button @click="addToWishlist" class="flex hover:text-indigo-600">
+          <button
+            v-if="isProductAddedToWishlist"
+            @click="handleClickRemoveFromWishlist"
+            class="flex hover:text-indigo-600"
+          >
+            <Icon name="ion:heart" width="18" height="18" />
+            <span class="ml-2">Remove from wishlist</span>
+          </button>
+          <button
+            v-else
+            @click="handleClickAddToWishlist"
+            class="flex hover:text-indigo-600"
+          >
             <Icon name="ion:heart-outline" width="18" height="18" />
             <span class="ml-2">Add to wishlist</span>
           </button>
@@ -143,6 +155,7 @@ import { HeadlinesTypes } from "@/enums/enums";
 import type { ProductAttributes } from "@/types/types";
 
 const cart = useCart();
+const wishlist = useWishlist();
 const config = useRuntimeConfig();
 const route = useRoute();
 const { $imgUrl } = useNuxtApp();
@@ -174,22 +187,32 @@ const reviewsTabHeadline = computed(() => {
   return `Reviews (0)`;
 });
 
-async function addToWishlist() {
-  try {
-    const headers = {
-      Authorization: `bearer ${config.public.apiKey}`,
-    };
+const isProductAddedToWishlist = computed(() =>
+  wishlist.getProductsIdsList.includes(Number(route.params.id))
+);
 
-    const res = await useFetch(`${config.public.baseURL}/wishlists/6`, {
-      method: "PUT",
-      headers,
-      body: {
-        data: {
-          products: [route.params.id],
-        },
-      },
+async function handleClickAddToWishlist() {
+  try {
+    wishlist.addProductToWishlist(Number(route.params.id));
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "You cannot add this product to wishlist, sorry...",
+      type: "error",
     });
-  } catch (err) {}
+  }
+}
+
+async function handleClickRemoveFromWishlist() {
+  try {
+    wishlist.removeProductFromWishlist(Number(route.params.id));
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "You cannot add this product to wishlist, sorry...",
+      type: "error",
+    });
+  }
 }
 
 function handleClickShareProduct() {

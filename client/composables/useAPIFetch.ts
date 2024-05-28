@@ -5,9 +5,7 @@ export const useAPIFetch = async (request: string) => {
         Authorization: `bearer ${config.public.apiKey}`,
     };
 
-    const { data } = await useFetch(`${config.public.baseURL + request}`, { headers });
+    const { data } = await $fetch(`${config.public.baseURL + request}`, { headers });
 
-    if(data.value.data)
-    return data.value.data;
-    else return data.value;
+    return data
 }

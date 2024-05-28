@@ -59,7 +59,7 @@
 import type { ProductReviewsSummary, ImageObject } from "@/types/types";
 
 interface Props {
-  id: string;
+  id: string | number;
   name: string;
   price: number;
   discount: number | null;
