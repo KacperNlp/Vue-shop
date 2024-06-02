@@ -22,8 +22,8 @@
             </div>
             <div>
               <AppHeadline :headlineType="HeadlinesTypes.H3" class="mb-0">{{
-        headline
-      }}</AppHeadline>
+                headline
+                }}</AppHeadline>
               <span class="text-sm">{{ text }}</span>
             </div>
           </AppCard>

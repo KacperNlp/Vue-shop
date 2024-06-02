@@ -5,23 +5,21 @@
     </div>
     <div class="absolute top-0 w-full h-full flex flex-col justify-center">
       <div class="w-full max-w-[1280px] mx-auto px-8 2xl:px-0">
-        <h1
-          class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:mb-2 font-bold"
-        >
+        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:mb-2 font-bold">
           {{ headline }}
         </h1>
         <h2 class="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-2">
           {{ subHeadline }}
         </h2>
         <p class="mb-4 font-light max-w-xs lg:text-lg">{{ description }}</p>
-        <AppButton>Shop now</AppButton>
+        <AppButton :btnLink="btnLink">{{ btnText }}</AppButton>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-interface Props {
+export interface Props {
   imgUrl: string;
   headline: string;
   subHeadline: string;
