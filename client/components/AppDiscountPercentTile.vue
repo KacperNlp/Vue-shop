@@ -1,9 +1,6 @@
 <template>
-  <span
-    v-if="discount"
-    class="px-2 py-1 text-center text-xs text-gray-50 bg-rose-400 rounded-lg"
-    >{{ discountPercent }}</span
-  >
+  <span v-if="discount" class="px-2 py-1 text-center text-xs text-gray-50 bg-rose-400 rounded-lg">{{ discountPercent
+    }}</span>
 </template>
 
 <script setup lang="ts">
