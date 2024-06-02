@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 
 import AppBanner from '../../components/AppBanner.vue'
 import AppButton from '../../components/AppButton.vue'
@@ -16,7 +16,7 @@ function mountAppBanner(props: Props) {
     });
 }
 
-function commonAssertions(wrapper, props: Props) {
+function commonAssertions(wrapper: VueWrapper, props: Props) {
     const bannerImg = wrapper.find('img');
     const headline = wrapper.find('h1');
     const subHeadline = wrapper.find('h2');
