@@ -14,7 +14,23 @@ describe('AppButton', () => {
             }
         });
 
-        expect(wrapper.text()).toContain('Click link');
-        expect(wrapper.attributes('href')).toBe('/example-link');
+        const linkTag = wrapper.find('a');
+
+        expect(linkTag.exists()).toBe(true);
+
+        expect(linkTag.text()).toContain('Click link');
+        expect(linkTag.attributes('href')).toBe('/example-link');
+    })
+
+    it('AppButton is a button since we did not pass btnLink prop', () => {
+        const wrapper = mount(AppButton, {
+            slots: {
+                default: 'Button example'
+            }
+        });
+
+        const buttonTag = wrapper.find('button');
+
+        expect(buttonTag.exists()).toBe(true);
     })
 })
