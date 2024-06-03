@@ -10,7 +10,7 @@ enum HeadlinesTypes {
 enum OrderStatus {
     InProgress = 'InProgress',
     Done = 'Done',
-    Delivered = 'InProgress',
+    Delivered = 'Delivered',
 }
 
 const OrderStatusText = [
