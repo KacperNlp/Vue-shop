@@ -15,20 +15,17 @@ type ProductReviewsSummary = {
 
 type ImageObject = {
     id: number,
-    attributes: {
-        url: string,
-    }
+    url: string,
 }
 
-type ProductAttributes = {
+type Product = {
+    id: string | number,
     name: string,
     shortDesc: string,
     description: string,
     price: number,
     discount: null | number,
-    images: {
-        data: ImageObject[] | null
-    },
+    images:  ImageObject[] | null,
     thumbnail: string,
     isNew: boolean,
     reviews: ProductReviewsSummary | null,
@@ -37,11 +34,6 @@ type ProductAttributes = {
     },
     sku: string,
     stock: number,
-}
-
-type Product = {
-    id: string | number,
-    attributes: ProductAttributes
 }
 
 type BreadcrumbType = {
@@ -133,7 +125,6 @@ export type {
     NavigationStoreSetup,
     ProductReviewsSummary,
     Product,
-    ProductAttributes,
     BreadcrumbType,
     CartStore,
     WishlistStore,

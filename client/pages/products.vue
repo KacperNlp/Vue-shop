@@ -35,14 +35,17 @@
     </div>
     <div class="w-full">
       <ul class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        <li v-for="{ id, attributes } in products" :ke="id">
+        <li
+          v-for="{ id, name, price, discount, images, reviews } in products"
+          :ke="id"
+        >
           <AppProductBox
             :id="id"
-            :name="attributes.name"
-            :price="attributes.price"
-            :discount="attributes.discount"
-            :imgs="attributes.images.data"
-            :reviews="attributes.reviews"
+            :name="name"
+            :price="price"
+            :discount="discount"
+            :imgs="images"
+            :reviews="reviews"
           />
         </li>
       </ul>
@@ -94,7 +97,7 @@ async function loadProducts() {
   try {
     let queryString = "?populate=*&";
 
-    queryString += `filters[price][$gte]=${filters.price[0]}&filters[price][$lte]=${filters.price[1]}&`;
+    queryString += `filters[price][gte]=${filters.price[0]}&filters[price][lte]=${filters.price[1]}&`;
 
     if (filters.checkedCategories && filters.checkedCategories.length > 0) {
       const categoryFilters = filters.checkedCategories
@@ -108,6 +111,7 @@ async function loadProducts() {
     }
 
     const response = await useAPIFetch(`/products${queryString}`);
+    console.log(response);
 
     products.value = response;
   } catch (err) {
@@ -122,19 +126,18 @@ function getMinAndMax(products: Product[]) {
   let max = null;
 
   for (let product of products) {
-    let discount = product.attributes.discount;
-    if (discount === null) discount = 0;
+    let price = product.price;
+    let discount = product.discount;
 
-    if (min === null || discount < min) min = discount;
-    if (max === null || discount > max) max = discount;
+    let finalPrice = discount > 0 ? discount : price;
+
+    if (min === null || finalPrice < min) min = finalPrice;
+    if (max === null || finalPrice > max) max = finalPrice;
   }
 
   if (!min || !max) {
     minValue.value = 10;
     maxValue.value = 100;
-
-    console.log(min);
-    console.log(max);
 
     return [10, 100];
   }

@@ -152,7 +152,7 @@ import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import { ElNotification } from "element-plus";
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
-import type { ProductAttributes } from "@/types/types";
+import type { Product } from "@/types/types";
 
 const cart = useCart();
 const wishlist = useWishlist();
@@ -163,7 +163,8 @@ const { $imgUrl } = useNuxtApp();
 const quantity = ref(1);
 const activeName = ref("first");
 const isLoading = ref(true);
-const product = reactive<ProductAttributes>({
+const product = reactive<Product>({
+  id: 0,
   name: "",
   shortDesc: "",
   description: "",

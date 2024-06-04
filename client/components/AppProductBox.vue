@@ -26,12 +26,8 @@
           :discount="discount"
           class="absolute top-2 right-2"
         />
-        <div>
-          <img
-            :src="$imgUrl(imgs[0].attributes.url)"
-            :alt="name"
-            loading="lazy"
-          />
+        <div v-if="imgs">
+          <img :src="$imgUrl(imgs[0].url)" :alt="name" loading="lazy" />
         </div>
         <div class="mt-3">
           <AppReviewStars
@@ -63,7 +59,7 @@ interface Props {
   name: string;
   price: number;
   discount: number | null;
-  imgs: ImageObject[];
+  imgs: ImageObject[] | null;
   reviews: ProductReviewsSummary | null;
   loading: boolean;
 }
