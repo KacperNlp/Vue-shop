@@ -25,14 +25,17 @@
     </div>
     <div class="w-full">
       <ul class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-        <li v-for="{ id, attributes } in products" :ke="id">
+        <li
+          v-for="{ id, name, price, discount, images, reviews } in products"
+          :ke="id"
+        >
           <AppProductBox
             :id="id"
-            :name="attributes.name"
-            :price="attributes.price"
-            :discount="attributes.discount"
-            :imgs="attributes.images.data"
-            :reviews="attributes.reviews"
+            :name="name"
+            :price="price"
+            :discount="discount"
+            :imgs="images"
+            :reviews="reviews"
             :loading="isLoading"
           />
         </li>

@@ -9,37 +9,38 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::product.product", ({ strapi }) => ({
   async find(ctx) {
     let entities;
+    const { filters } = ctx.query;
 
-    if (!!ctx.query.filters) {
-      const { gte, lte } = ctx.query.filters.price;
-      // Fetch products with no discount
-      const noDiscountProducts = await strapi.db
-        .query("api::product.product")
-        .findMany({
-          populate: true,
-          where: {
+    // Initialize the base query
+    let query = {
+      populate: true,
+      where: {},
+    };
+
+    if (filters) {
+      // Price filters
+      if (filters.price) {
+        const { gte, lte } = filters.price;
+        query.where.$or = [
+          {
             $and: [{ discount: 0 }, { price: { $gte: gte, $lte: lte } }],
           },
-        });
-
-      const discountProducts = await strapi.db
-        .query("api::product.product")
-        .findMany({
-          populate: true,
-          where: {
+          {
             $and: [
               { discount: { $gt: 0 } },
               { discount: { $gte: gte, $lte: lte } },
             ],
           },
-        });
+        ];
+      }
 
-      entities = [...noDiscountProducts, ...discountProducts];
-    } else {
-      entities = await strapi.db.query("api::product.product").findMany({
-        populate: true,
-      });
+      // Category filters
+      if (filters.category) {
+        query.where.category = { id: { $in: filters.category } };
+      }
     }
+
+    entities = await strapi.db.query("api::product.product").findMany(query);
 
     return entities;
   },
