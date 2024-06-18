@@ -81,7 +81,9 @@ async function getLoadData() {
 
     categories.value = categoriesDataRespons;
     products.value = productsDataResponse;
-    filters.price = getMinAndMax(products.value);
+    filters.price = useMinMaxPrice(products.value);
+    minValue.value = filters.price[0];
+    maxValue.value = filters.price[1];
   } catch (err) {
     console.log("Error");
   }
@@ -117,35 +119,6 @@ async function loadProducts() {
   } catch (err) {
     console.log("Error");
   }
-}
-
-function getMinAndMax(products: Product[]) {
-  if (!products.length) return { min: null, max: null };
-
-  let min = null;
-  let max = null;
-
-  for (let product of products) {
-    let price = product.price;
-    let discount = product.discount;
-
-    let finalPrice = discount > 0 ? discount : price;
-
-    if (min === null || finalPrice < min) min = finalPrice;
-    if (max === null || finalPrice > max) max = finalPrice;
-  }
-
-  if (!min || !max) {
-    minValue.value = 10;
-    maxValue.value = 100;
-
-    return [10, 100];
-  }
-
-  minValue.value = min;
-  maxValue.value = max;
-
-  return [min, max];
 }
 
 await getLoadData();
