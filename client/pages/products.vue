@@ -124,11 +124,15 @@ async function loadProducts() {
 await getLoadData();
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-collapse-item {
   &__header,
   &__content {
     background: #f3f4f6;
+  }
+
+  &__wrap {
+    overflow: visible;
   }
 }
 </style>
