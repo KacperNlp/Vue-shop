@@ -21,17 +21,29 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
       // Price filters
       if (filters.price) {
         const { gte, lte } = filters.price;
-        query.where.$or = [
-          {
-            $and: [{ discount: 0 }, { price: { $gte: gte, $lte: lte } }],
-          },
-          {
-            $and: [
-              { discount: { $gt: 0 } },
-              { discount: { $gte: gte, $lte: lte } },
-            ],
-          },
-        ];
+
+        if (filters.discount) {
+          query.where.$or = [
+            {
+              $and: [
+                { discount: { $gt: 0 } },
+                { discount: { $gte: gte, $lte: lte } },
+              ],
+            },
+          ];
+        } else {
+          query.where.$or = [
+            {
+              $and: [{ discount: 0 }, { price: { $gte: gte, $lte: lte } }],
+            },
+            {
+              $and: [
+                { discount: { $gt: 0 } },
+                { discount: { $gte: gte, $lte: lte } },
+              ],
+            },
+          ];
+        }
       }
 
       // Category filters
@@ -46,6 +58,7 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
       }
     }
 
+    console.log(query);
     entities = await strapi.db.query("api::product.product").findMany(query);
 
     return entities;
