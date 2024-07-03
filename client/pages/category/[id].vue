@@ -67,6 +67,12 @@
 import { HeadlinesTypes } from "@/enums/enums";
 import type { Category, Product } from "@/types/types";
 
+interface Filter {
+  price: number[];
+  checkedCategories: string[];
+  isSaleOnly: boolean;
+}
+
 const route = useRoute();
 
 const categories = ref<Category[]>([]);
@@ -76,7 +82,7 @@ const isLoading = ref(true);
 const minValue = ref(10);
 const maxValue = ref(100);
 
-const filters = reactive({
+const filters = reactive<Filter>({
   price: [10, 40],
   checkedCategories: [],
   isSaleOnly: false,
@@ -91,13 +97,14 @@ async function getLoadData() {
     const [categoriesDataRespons, productsDataResponse] = await Promise.all([
       useAPIFetch("/categories"),
       useAPIFetch(
-        `/products?filters[$and][0][category][name][$eq]=${route.params.id}&populate=*`
+        `/products?filters[category][name][$eq]=${route.params.id}&populate=*`
       ),
     ]);
 
     categories.value = categoriesDataRespons;
     products.value = productsDataResponse;
     filters.price = useMinMaxPrice(products.value);
+    filters.checkedCategories.push(String(route.params.id));
     minValue.value = filters.price[0];
     maxValue.value = filters.price[1];
     isLoading.value = false;
@@ -120,7 +127,7 @@ async function loadProducts() {
 
     if (filters.checkedCategories && filters.checkedCategories.length > 0) {
       const categoryFilters = filters.checkedCategories
-        .map((categoryId) => `filters[category][name][$in]=${categoryId}`)
+        .map((categoryId) => `filters[category][name]=${categoryId}`)
         .join("&");
       queryString += categoryFilters + "&";
     }
@@ -129,7 +136,13 @@ async function loadProducts() {
       queryString += `filters[discount][$gt]=0`;
     }
 
-    const response = await useAPIFetch(`/products${queryString}`);
+    const reqFilters = {
+      minPrice: filters.price[0],
+      maxPrice: filters.price[1],
+      categories: filters.checkedCategories,
+      isSaleOnly: filters.isSaleOnly,
+    };
+    const response = await useAPIFetch(`/products`, reqFilters);
     console.log(response);
 
     products.value = response;

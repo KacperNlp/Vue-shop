@@ -103,7 +103,7 @@ async function loadProducts() {
 
     if (filters.checkedCategories && filters.checkedCategories.length > 0) {
       const categoryFilters = filters.checkedCategories
-        .map((categoryId) => `filters[category][name][$in]=${categoryId}`)
+        .map((categoryId) => `filters[category][name]=${categoryId}`)
         .join("&");
       queryString += categoryFilters + "&";
     }
@@ -124,7 +124,7 @@ async function loadProducts() {
 await getLoadData();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .el-collapse-item {
   &__header,
   &__content {

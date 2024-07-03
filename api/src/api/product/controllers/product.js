@@ -36,7 +36,13 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
 
       // Category filters
       if (filters.category) {
-        query.where.category = { id: { $in: filters.category } };
+        const categoryFilter = filters.category;
+
+        if (Array.isArray(categoryFilter.name)) {
+          query.where.category = { key: { $in: categoryFilter.name } };
+        } else {
+          query.where.category = { key: { $eq: categoryFilter.name } };
+        }
       }
     }
 
