@@ -1,14 +1,17 @@
 <template>
   <div v-if="products.length">
     <Splide aria-label="..." :options="SLIDER_CONFIG">
-      <SplideSlide v-for="{ id, attributes } in products" :key="id">
+      <SplideSlide
+        v-for="{ id, name, price, discount, reviews, images } in products"
+        :key="id"
+      >
         <AppProductBox
           :id="id"
-          :name="attributes.name"
-          :price="attributes.price"
-          :discount="attributes.discount"
-          :reviews="attributes.reviews"
-          :imgs="attributes.images.data"
+          :name="name"
+          :price="price"
+          :discount="discount"
+          :reviews="reviews"
+          :imgs="images"
         />
       </SplideSlide>
     </Splide>
@@ -50,8 +53,10 @@ const products = ref([]);
 async function fetchProductsByCategory() {
   try {
     products.value = await useAPIFetch(
-      `/products?filters[$and][0][category][url][$eq]=/${props.category}&filters[$and][1][id][$ne]=${props.productToAvoid}&populate=*`
+      `/products?filters[category][name]=${props.category}&filters[productToAvoid]=${props.productToAvoid}&populate=*`
     );
+
+    console.log(products.value);
   } catch (err) {
     console.error(err);
 

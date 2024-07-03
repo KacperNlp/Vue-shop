@@ -1,5 +1,7 @@
 "use strict";
 
+const { filter } = require("../../../../config/middlewares");
+
 /**
  * product controller
  */
@@ -16,6 +18,7 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
       populate: true,
       where: {},
     };
+    console.log(filters);
 
     if (filters) {
       // Price filters
@@ -56,9 +59,12 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
           query.where.category = { key: { $eq: categoryFilter.name } };
         }
       }
+
+      if (filters.productToAvoid) {
+        query.where.id = { $ne: filters.productToAvoid };
+      }
     }
 
-    console.log(query);
     entities = await strapi.db.query("api::product.product").findMany(query);
 
     return entities;
