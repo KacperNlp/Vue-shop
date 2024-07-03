@@ -97,7 +97,7 @@ async function getLoadData() {
     const [categoriesDataRespons, productsDataResponse] = await Promise.all([
       useAPIFetch("/categories"),
       useAPIFetch(
-        `/products?filters[category][name][$eq]=${route.params.id}&populate=*`
+        `/products?filters[category][name]=${route.params.id}&populate=*`
       ),
     ]);
 
@@ -136,18 +136,11 @@ async function loadProducts() {
       queryString += `filters[discount][$gt]=0`;
     }
 
-    const reqFilters = {
-      minPrice: filters.price[0],
-      maxPrice: filters.price[1],
-      categories: filters.checkedCategories,
-      isSaleOnly: filters.isSaleOnly,
-    };
-    const response = await useAPIFetch(`/products`, reqFilters);
-    console.log(response);
+    const response = await useAPIFetch(`/products${queryString}`);
 
     products.value = response;
   } catch (err) {
-    console.log("Error");
+    console.error(err);
   }
 }
 

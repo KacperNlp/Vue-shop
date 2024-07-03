@@ -113,11 +113,10 @@ async function loadProducts() {
     }
 
     const response = await useAPIFetch(`/products${queryString}`);
-    console.log(response);
 
     products.value = response;
   } catch (err) {
-    console.log("Error");
+    console.error("Error");
   }
 }
 
