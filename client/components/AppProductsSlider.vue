@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
-import type { Product } from "@/types/types";
 
 interface Props {
   category: string;
@@ -55,8 +54,6 @@ async function fetchProductsByCategory() {
     products.value = await useAPIFetch(
       `/products?filters[category][name]=${props.category}&filters[productToAvoid]=${props.productToAvoid}&populate=*`
     );
-
-    console.log(products.value);
   } catch (err) {
     console.error(err);
 

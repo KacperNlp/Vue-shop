@@ -14,7 +14,7 @@
               :price="attributes.price"
               :discount="attributes.discount"
               :reviews="attributes.reviews"
-              :imgs="attributes.images.data"
+              :imgs="[attributes.images.data[0].attributes]"
             />
           </li>
         </ul>

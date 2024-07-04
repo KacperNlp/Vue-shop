@@ -130,6 +130,10 @@
         </el-tab-pane>
         <el-tab-pane :label="reviewsTabHeadline" name="second">
           <p class="m-0 max-w-lg">No reviews...</p>
+          <div class="mt-4">
+            <span class="text-sm text-gray-600">Dodaj swoją opinie</span>
+            <AppAddReviewForm @sendOpinion="handleClickSendUsertOpinion" />
+          </div>
         </el-tab-pane>
       </el-tabs>
     </AppSectionBox>
@@ -152,7 +156,7 @@ import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import { ElNotification } from "element-plus";
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
-import type { Product } from "@/types/types";
+import type { Product, UserReview } from "@/types/types";
 
 const cart = useCart();
 const wishlist = useWishlist();
@@ -245,6 +249,26 @@ function handleClickAddProductToCart() {
 
   cart.addProductToCart(addedProduct);
   quantity.value = 1;
+}
+
+async function handleClickSendUsertOpinion(form: UserReview) {
+  try {
+    await useFetch(`${config.public.baseURL}/reviews`, {
+      method: "POST",
+      body: {
+        data: form,
+      },
+      headers: {
+        Authorization: `bearer ${config.public.apiKey}`,
+      },
+    });
+  } catch (err) {
+    ElNotification({
+      title: "Error",
+      message: "Sorry... You cannot send your review, please try later",
+      type: "error",
+    });
+  }
 }
 
 async function fetchData() {

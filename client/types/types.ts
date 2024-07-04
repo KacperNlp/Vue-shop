@@ -120,6 +120,12 @@ interface MessageFormData {
     message: string,
 }
 
+interface UserReview {
+    text: string,
+    rating: number,
+    user: number | null | string
+}
+
 export type {
     NavigationElement,
     NavigationStoreSetup,
@@ -135,5 +141,6 @@ export type {
     Category,
     Resource,
     ImageObject,
-    MessageFormData
+    MessageFormData,
+    UserReview
 }
