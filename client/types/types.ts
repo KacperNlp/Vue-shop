@@ -9,13 +9,22 @@ type NavigationStoreSetup = {
 }
 
 type ProductReviewsSummary = {
-    numberOfReviews: number,
-    review: number
+    attributes: {
+      rating: number, 
+      text: string,
+      createdAt: string,
+      user?: DataObj<UserDataWrapper>
+    },
+    id: number
 }
 
 type ImageObject = {
     id: number,
     url: string,
+}
+
+type DataObj<T> = {
+    data: T
 }
 
 type Product = {
@@ -28,7 +37,7 @@ type Product = {
     images:  ImageObject[] | null,
     thumbnail: string,
     isNew: boolean,
-    reviews: ProductReviewsSummary | null,
+    reviews: DataObj<ProductReviewsSummary[]> | null,
     category: {
         data: Category[] | null
     },
@@ -71,6 +80,11 @@ interface UserRegister extends UserLogin  {
     email: string,
     name: string,
     surname: string
+}
+
+interface UserDataWrapper {
+    id: number,
+    attributes: UserData
 }
 
 interface UserData {
@@ -123,7 +137,8 @@ interface MessageFormData {
 interface UserReview {
     text: string,
     rating: number,
-    user: number | null | string
+    user: number | null | string,
+    product: number | string
 }
 
 export type {
@@ -142,5 +157,6 @@ export type {
     Resource,
     ImageObject,
     MessageFormData,
-    UserReview
+    UserReview,
+    DataObj
 }

@@ -24,12 +24,19 @@
 <script lang="ts" setup>
 import type { UserReview, UserData } from "@/types/types";
 
+interface Props {
+  productId: number;
+}
+
+const props = defineProps<Props>();
+
 const emit = defineEmits(["sendOpinion"]);
 
 const form = reactive<UserReview>({
   rating: 0,
   text: "",
   user: null,
+  product: props.productId,
 });
 
 function loadUserId() {

@@ -1014,6 +1014,11 @@ export interface ApiReviewReview extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    product: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'api::product.product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

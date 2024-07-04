@@ -129,10 +129,43 @@
           </p>
         </el-tab-pane>
         <el-tab-pane :label="reviewsTabHeadline" name="second">
-          <p class="m-0 max-w-lg">No reviews...</p>
-          <div class="mt-4">
+          <div v-if="isReviewsMoreThanZero" class="flex flex-col gap-4">
+            <span class="mt-4 text-sm text-gray-600"
+              >Opinie innych użytkowników:</span
+            >
+            <el-card v-for="review in productReviews" :key="review.id">
+              <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+                <div class="flex gap-2 md:flex-col items-center">
+                  <el-avatar :icon="UserFilled" />
+                  <span class="text-xs text-gray-500">{{
+                    review.attributes.user?.data.attributes.username
+                  }}</span>
+                </div>
+                <div>
+                  <span class="block text-xs text-gray-500">{{
+                    getDate(review.attributes.createdAt)
+                  }}</span>
+                  <el-rate
+                    v-model="review.attributes.rating"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value} points"
+                  />
+                  <p v-if="review.attributes.text" class="text-sm mt-2">
+                    {{ review.attributes.text }}
+                  </p>
+                </div>
+              </div>
+            </el-card>
+          </div>
+          <p v-else class="m-0 max-w-lg">No reviews...</p>
+          <div class="mt-8">
             <span class="text-sm text-gray-600">Dodaj swoją opinie</span>
-            <AppAddReviewForm @sendOpinion="handleClickSendUsertOpinion" />
+            <AppAddReviewForm
+              :productId="Number(route.params.id)"
+              @sendOpinion="handleClickSendUsertOpinion"
+            />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -154,9 +187,15 @@
 <script setup lang="ts">
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import { ElNotification } from "element-plus";
+import { UserFilled } from "@element-plus/icons-vue";
 import "@splidejs/vue-splide/css";
 import { HeadlinesTypes } from "@/enums/enums";
-import type { Product, UserReview } from "@/types/types";
+import type {
+  Product,
+  UserReview,
+  DataObj,
+  ProductReviewsSummary,
+} from "@/types/types";
 
 const cart = useCart();
 const wishlist = useWishlist();
@@ -167,6 +206,7 @@ const { $imgUrl } = useNuxtApp();
 const quantity = ref(1);
 const activeName = ref("first");
 const isLoading = ref(true);
+const productReviews = ref<ProductReviewsSummary[] | null>(null);
 const product = reactive<Product>({
   id: 0,
   name: "",
@@ -187,10 +227,14 @@ const product = reactive<Product>({
 });
 
 const reviewsTabHeadline = computed(() => {
-  if (!!product?.reviews) return `Reviews (${product.reviews.numberOfReviews})`;
+  console.log(productReviews.value);
+  if (!!productReviews.value)
+    return `Reviews (${productReviews.value?.length})`;
 
   return `Reviews (0)`;
 });
+
+const isReviewsMoreThanZero = computed(() => !!productReviews.value?.length);
 
 const isProductAddedToWishlist = computed(() =>
   wishlist.getProductsIdsList.includes(Number(route.params.id))
@@ -262,6 +306,8 @@ async function handleClickSendUsertOpinion(form: UserReview) {
         Authorization: `bearer ${config.public.apiKey}`,
       },
     });
+
+    fetchData();
   } catch (err) {
     ElNotification({
       title: "Error",
@@ -271,11 +317,27 @@ async function handleClickSendUsertOpinion(form: UserReview) {
   }
 }
 
+function getDate(isoDateString: string) {
+  const date = new Date(isoDateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${hours}:${minutes}, ${day}.${month}.${year}`;
+}
+
 async function fetchData() {
   try {
-    const { attributes } = await useAPIFetch(
-      `/products/${route.params.id}?&populate=*`
-    );
+    const [{ attributes }, reviews] = await Promise.all([
+      useAPIFetch(`/products/${route.params.id}?&populate=*`),
+      useAPIFetch(
+        `/reviews?filters[product][id][$eq]=${route.params.id}&populate=*`
+      ),
+    ]);
+
+    productReviews.value = reviews as ProductReviewsSummary[];
 
     for (const [key, value] of Object.entries(attributes)) {
       product[key] = value;
