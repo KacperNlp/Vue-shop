@@ -32,8 +32,8 @@
         <div class="mt-3">
           <AppReviewStars
             v-if="!!reviews"
-            :numberOfReviews="reviews.numberOfReviews"
-            :review="reviews.review"
+            :numberOfReviews="reviews.length"
+            :review="reviewsSummary"
           />
           <h3 class="font-light mb-2">{{ name }}</h3>
           <div v-if="discount">
@@ -60,11 +60,21 @@ interface Props {
   price: number;
   discount: number | null;
   imgs: ImageObject[] | null;
-  reviews: ProductReviewsSummary | null;
+  reviews: ProductReviewsSummary[];
   loading: boolean;
 }
 
 const { $currency, $imgUrl } = useNuxtApp();
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const reviewsSummary = computed(() => {
+  if (!props.reviews.length) return 0;
+
+  let summary = 0;
+
+  props.reviews.forEach(({ rating }) => (summary += rating));
+
+  return summary / props.reviews.length;
+});
 </script>

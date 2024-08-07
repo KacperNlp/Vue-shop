@@ -29,8 +29,8 @@
             <h1 class="mb-2 text-2xl">{{ product.name }}</h1>
             <AppReviewStars
               v-if="!!product.reviews"
-              :numberOfReviews="product.reviews.numberOfReviews"
-              :review="product.reviews.review"
+              :numberOfReviews="getNumberOfReviews"
+              :review="reviewsSummary"
             />
           </div>
           <div class="text-lg">
@@ -134,7 +134,9 @@
               >Opinie innych użytkowników:</span
             >
             <el-card v-for="review in productReviews" :key="review.id">
-              <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+              <div
+                class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8"
+              >
                 <div class="flex gap-2 md:flex-col items-center">
                   <el-avatar :icon="UserFilled" />
                   <span class="text-xs text-gray-500">{{
@@ -239,6 +241,24 @@ const isReviewsMoreThanZero = computed(() => !!productReviews.value?.length);
 const isProductAddedToWishlist = computed(() =>
   wishlist.getProductsIdsList.includes(Number(route.params.id))
 );
+
+const getNumberOfReviews = computed(() => {
+  if (!productReviews.value || !productReviews.value.length) return 0;
+
+  return productReviews.value.length;
+});
+
+const reviewsSummary = computed(() => {
+  if (!productReviews.value || !productReviews.value.length) return 0;
+
+  let summary = 0;
+
+  productReviews.value.forEach(
+    ({ attributes }) => (summary += attributes.rating)
+  );
+
+  return summary / productReviews.value.length;
+});
 
 async function handleClickAddToWishlist() {
   try {
