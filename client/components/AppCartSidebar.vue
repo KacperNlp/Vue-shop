@@ -47,10 +47,10 @@
         name="ion:cart-outline"
         width="48"
         height="48"
-        class="text-gray-400"
+        class="text-gray-500"
       />
     </span>
-    <span class="text-gray-400">Your cart is empty...</span>
+    <span class="text-gray-500">Your cart is empty...</span>
   </div>
 </template>
 

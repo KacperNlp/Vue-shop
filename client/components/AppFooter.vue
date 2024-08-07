@@ -19,9 +19,12 @@
           }}</AppHeadline>
           <ul class="flex flex-col gap-2">
             <li v-for="link in links" :key="link.id">
-              <a class="text-sm hover:underline" :href="link.url">{{
-                link.name
-              }}</a>
+              <a
+                class="text-sm hover:underline"
+                :href="link.url"
+                :title="link.name"
+                >{{ link.name }}</a
+              >
             </li>
           </ul>
         </div>
@@ -33,8 +36,8 @@
       <span>ScriptCommerce - by Kacper Nalepa</span>
       <div>
         <ul class="flex gap-4">
-          <li v-for="{ id, icon, url } in socialMedia" :key="id">
-            <a :href="url" class="w-4 h-4">
+          <li v-for="{ id, icon, url, name } in socialMedia" :key="id">
+            <a :href="url" class="w-4 h-4" :title="name">
               <Icon
                 :name="icon"
                 width="24"
@@ -57,16 +60,19 @@ const socialMedia = [
     id: 1,
     icon: "mdi:youtube",
     url: "#",
+    name: "YouTube",
   },
   {
     id: 2,
     icon: "ic:baseline-tiktok",
     url: "#",
+    name: "TikTok",
   },
   {
     id: 3,
     icon: "mdi:instagram",
     url: "#",
+    name: "Instagram",
   },
 ];
 

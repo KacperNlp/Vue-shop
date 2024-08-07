@@ -5,7 +5,7 @@
   >
     <img
       :src="imgUrl"
-      :alt="text"
+      :alt="`Category ${text}`"
       class="absolute object-cover object-center h-full w-full"
     />
     <div

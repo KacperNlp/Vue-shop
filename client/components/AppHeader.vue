@@ -2,7 +2,7 @@
   <header class="sticky top-0 z-30 flex py-4 shadow-sm bg-white">
     <div class="mx-auto px-4 max-w-[1400px] w-full flex justify-between">
       <div class="flex items-center gap-4 lg:gap-12">
-        <button @click="handleClickOpenNav" class="lg:hidden">
+        <button @click="handleClickOpenNav" class="lg:hidden" aria-label="Bars">
           <Icon name="gravity-ui:bars" width="24" height="24" />
         </button>
         <AppLogo />
@@ -26,6 +26,7 @@
           <button
             @click="handleClickCloseNav"
             class="absolute top-4 right-8 lg:hidden"
+            aria-label="Close navigation"
           >
             <Icon name="material-symbols:close" width="24" height="24" />
           </button>
@@ -33,7 +34,7 @@
       </div>
       <div class="flex gap-4">
         <div class="hidden lg:flex items-center">
-          <NuxtLink to="/wishlist">
+          <NuxtLink to="/wishlist" title="User wishlist">
             <Icon
               name="mdi:heart-outline"
               width="24"
@@ -43,7 +44,7 @@
           </NuxtLink>
         </div>
         <div class="hidden lg:flex items-center">
-          <NuxtLink to="/account">
+          <NuxtLink to="/account" title="User account">
             <Icon
               name="mdi:user-outline"
               width="24"
@@ -53,10 +54,15 @@
           </NuxtLink>
         </div>
         <div class="flex items-center">
-          <button @click="handleClickOpenCheckout" class="relative">
+          <button
+            @click="handleClickOpenCheckout"
+            class="relative"
+            aria-label="Open checkout"
+          >
             <span
               v-if="cart.numberOfProductsAddedToCart"
               class="absolute top-[-4px] right-[-4px] text-[10px] flex justify-center items-center w-4 h-4 bg-green-600 text-gray-50 rounded-lg"
+              aria-label="Cart"
               >{{ cart.numberOfProductsAddedToCart }}</span
             >
             <Icon
@@ -73,7 +79,11 @@
       class="fixed top-0 right-[-100%] md:right-[-400px] flex justify-center items-center w-[90vw] md:w-96 h-screen bg-white shadow-lg duration-500"
       :class="{ '!right-0': isCheckoutVisible }"
     >
-      <button @click="handleClickCloseCheckout" class="absolute top-4 right-8">
+      <button
+        @click="handleClickCloseCheckout"
+        class="absolute top-4 right-8"
+        aria-label="Close checkout"
+      >
         <Icon name="material-symbols:close" width="24" height="24" />
       </button>
       <AppCartSidebar />

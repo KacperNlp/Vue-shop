@@ -29,6 +29,11 @@
 <script setup lang="ts">
 import { HeadlinesTypes } from "@/enums/enums";
 
+useHead({
+  title: "Wishlist",
+  meta: [{ name: "description", content: "Your wishlist" }],
+});
+
 const { $authUser } = useNuxtApp();
 const wishlistStore = useWishlist();
 

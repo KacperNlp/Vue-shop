@@ -363,6 +363,14 @@ async function fetchData() {
       product[key] = value;
     }
     isLoading.value = false;
+
+    useHead({
+      title: product?.name,
+      meta: [{ name: "description", content: product?.description }],
+      htmlAttrs: {
+        lang: "en",
+      },
+    });
   } catch (err) {
     ElNotification({
       title: "Error",

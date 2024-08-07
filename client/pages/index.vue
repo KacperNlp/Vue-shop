@@ -60,6 +60,14 @@
 import { HeadlinesTypes } from "@/enums/enums";
 import type { Category } from "@/types/types";
 
+useHead({
+  title: "Home",
+  meta: [{ name: "description", content: "Home page" }],
+  htmlAttrs: {
+    lang: "en",
+  },
+});
+
 const { $imgUrl } = useNuxtApp();
 
 const categories = ref<Category[]>([]);

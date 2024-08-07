@@ -56,6 +56,14 @@
 <script setup lang="ts">
 import type { Category, Product } from "@/types/types";
 
+useHead({
+  title: "All Products",
+  meta: [{ name: "description", content: "Page with all products" }],
+  htmlAttrs: {
+    lang: "en",
+  },
+});
+
 const categories = ref<Category[]>([]);
 const products = ref<Product[]>([]);
 const activeNames = ref(["1"]);
