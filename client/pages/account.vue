@@ -78,12 +78,10 @@ async function loadUserData() {
         await useAPIFetch(`/orders?user=${loggedUserData.id}`),
       ]);
 
-      console.log(userDataFromAPI);
       for (const [key, value] of Object.entries(userDataFromAPI)) {
         userData[key] = value;
       }
 
-      console.log(userOrdersData);
       userOrders.value = userOrdersData;
     }
   } catch (err) {

@@ -109,7 +109,7 @@ async function getLoadData() {
     maxValue.value = filters.price[1];
     isLoading.value = false;
   } catch (err) {
-    console.log("Error");
+    console.error("Error");
   }
 }
 

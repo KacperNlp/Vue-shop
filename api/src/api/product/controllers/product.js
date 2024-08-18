@@ -18,7 +18,6 @@ module.exports = createCoreController("api::product.product", ({ strapi }) => ({
       populate: true,
       where: {},
     };
-    console.log(filters);
 
     if (filters) {
       // Price filters

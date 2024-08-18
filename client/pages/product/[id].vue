@@ -229,7 +229,6 @@ const product = reactive<Product>({
 });
 
 const reviewsTabHeadline = computed(() => {
-  console.log(productReviews.value);
   if (!!productReviews.value)
     return `Reviews (${productReviews.value?.length})`;
 

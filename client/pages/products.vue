@@ -93,7 +93,7 @@ async function getLoadData() {
     minValue.value = filters.price[0];
     maxValue.value = filters.price[1];
   } catch (err) {
-    console.log("Error");
+    console.error(err);
   }
 }
 

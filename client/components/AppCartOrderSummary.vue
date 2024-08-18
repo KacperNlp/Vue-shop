@@ -78,7 +78,6 @@ const coupon = ref("");
 async function handleSubmitApplyCoupon() {
   try {
     const data = await useAPIFetch("/code?populate=*");
-    console.log(data);
   } catch (err) {
     ElNotification({
       title: "Error",
