@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     'nuxt-icon',
     '@element-plus/nuxt',
-    "@stefanobartoletti/nuxt-social-share"
+    "@stefanobartoletti/nuxt-social-share",
+    "@nuxt/image"
   ],
   runtimeConfig: {
     public: {
@@ -28,5 +29,10 @@ export default defineNuxtConfig({
     alias: {
       pinia: 'pinia'
     }
+  },
+  image: {
+    strapi: {
+      baseURL: process.env.BACKEND_UPLOAD_URL
+    },
   }
 })

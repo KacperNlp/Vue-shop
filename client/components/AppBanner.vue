@@ -1,11 +1,19 @@
 <template>
   <section class="relative">
     <div class="banner-img-box relative h-[60dvh]">
-      <img :src="imgUrl" :alt="headline" class="h-full w-full object-cover" />
+      <NuxtImg
+        :src="imgUrl"
+        :alt="headline"
+        class="h-full w-full object-cover"
+        format="webp"
+        quality="80"
+      />
     </div>
     <div class="absolute top-0 w-full h-full flex flex-col justify-center">
       <div class="w-full max-w-[1280px] mx-auto px-8 2xl:px-0">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:mb-2 font-bold">
+        <h1
+          class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:mb-2 font-bold"
+        >
           {{ headline }}
         </h1>
         <h2 class="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-2">

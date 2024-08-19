@@ -34,10 +34,9 @@
         >
           <AppCard class="flex gap-8 lg:gap-4 xl:gap-8 h-full p-8 items-center">
             <div>
-              <img
+              <NuxtImg
                 :src="img"
                 :alt="headline"
-                loading="lazy"
                 width="60"
                 height="60"
                 class="min-w-[60px]"

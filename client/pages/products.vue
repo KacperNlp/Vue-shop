@@ -46,6 +46,7 @@
             :discount="discount"
             :imgs="images"
             :reviews="reviews"
+            :loading="isLoading"
           />
         </li>
       </ul>
@@ -69,6 +70,7 @@ const products = ref<Product[]>([]);
 const activeNames = ref(["1"]);
 const minValue = ref(10);
 const maxValue = ref(100);
+const isLoading = ref(true);
 
 const filters = reactive({
   price: [10, 40],
@@ -81,6 +83,8 @@ const isClearFilterBtnVisible = computed(() => {
 });
 
 async function getLoadData() {
+  isLoading.value = true;
+
   try {
     const [categoriesDataRespons, productsDataResponse] = await Promise.all([
       useAPIFetch("/categories"),
@@ -92,8 +96,10 @@ async function getLoadData() {
     filters.price = useMinMaxPrice(products.value);
     minValue.value = filters.price[0];
     maxValue.value = filters.price[1];
+    isLoading.value = false;
   } catch (err) {
     console.error(err);
+    isLoading.value = true;
   }
 }
 

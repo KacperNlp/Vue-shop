@@ -3,10 +3,13 @@
     :to="link"
     class="relative snap-mandatory snap-x w-full aspect-[4/5] bg-gray-200 rounded-xl overflow-hidden"
   >
-    <img
+    <NuxtImg
       :src="imgUrl"
       :alt="`Category ${text}`"
       class="absolute object-cover object-center h-full w-full"
+      sizes="100vw sm:50vw md:400px"
+      format="webp"
+      quality="80"
     />
     <div
       class="relative w-full h-full bg-gray-700/50 hover:bg-gray-700/70 z-10 duration-200"

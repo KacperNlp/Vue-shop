@@ -27,7 +27,12 @@
           class="absolute top-2 right-2"
         />
         <div v-if="imgs">
-          <img :src="$imgUrl(imgs[0].url)" :alt="name" loading="lazy" />
+          <NuxtImg
+            :src="$imgUrl(imgs[0].url)"
+            :alt="name"
+            format="webp"
+            quality="80"
+          />
         </div>
         <div class="mt-3">
           <AppReviewStars
